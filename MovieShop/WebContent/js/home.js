@@ -1,4 +1,3 @@
-
 function handleResult(resultData) {
     console.log(resultData);
     let movieContainerElement = jQuery(".movies-container");
@@ -6,7 +5,7 @@ function handleResult(resultData) {
     for (let i = 0; i < resultData.length; i++) {
         html += '<div class="movie">'
         html += '   <div class="movie-header">'
-        html += '       <h2 class="movie-title"><a href="#">' + resultData[i]["movieTitle"] + '</a></h2>'
+        html += '       <h2 class="movie-title"><a href="./movie.html?id=' + resultData[i]["movieId"] + '">' + resultData[i]["movieTitle"] + '</a></h2>'
         html += '   </div>'
         html += '   <div class="movie-content">'
         html += '       <div class="info">'

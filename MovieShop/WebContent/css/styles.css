@@ -133,6 +133,39 @@ body {
     }
 }
 
+.title {
+    text-align: center;
+    margin-top: 0;
+    margin-bottom: 0;
+    color: navy;
+}
+
+table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    margin: 10px auto 30px;
+    width: 80%;
+    font-size: 12pt;
+}
+
+td, th {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 10px;
+}
+
+tr:nth-child(even) {
+    background-color: lavenderblush;
+}
+
+.button {
+    width: fit-content;
+    margin: 20px 0 0 30px;
+    padding: 4px 14px;
+    background-color: blueviolet;
+    color: white;
+}
+
 /*.footer {*/
 /*    text-align: center;*/
 /*    margin-top: auto;*/
