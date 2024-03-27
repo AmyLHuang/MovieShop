@@ -14,8 +14,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
-@WebServlet(name="MovieServlet", urlPatterns = "/api/movie")
-public class MovieServlet  extends HttpServlet {
+@WebServlet(name="StarServlet", urlPatterns = "/api/star")
+public class StarServlet  extends HttpServlet {
     private DataSource dataSource;
 
     public void init(ServletConfig config) {
@@ -37,13 +37,9 @@ public class MovieServlet  extends HttpServlet {
             statement.setString(1, id);
             ResultSet resultSet = statement.executeQuery();
             if (resultSet.next()) {
-                jsonObject.addProperty("movieId", resultSet.getString("mId"));
-                jsonObject.addProperty("movieTitle", resultSet.getString("mTitle"));
-                jsonObject.addProperty("movieYear", resultSet.getString("mYear"));
-                jsonObject.addProperty("movieDirector", resultSet.getString("mDirector"));
-                jsonObject.addProperty("movieRating", resultSet.getString("mRating"));
-                jsonObject.addProperty("movieGenres", resultSet.getString("mGenres"));
-                jsonObject.addProperty("movieStars", resultSet.getString("mStars"));
+                jsonObject.addProperty("starName", resultSet.getString("sName"));
+                jsonObject.addProperty("starYear", resultSet.getString("sYear"));
+                jsonObject.addProperty("starMovies", resultSet.getString("sMovies"));
             }
             writer.write(jsonObject.toString());
             resultSet.close();
@@ -61,17 +57,13 @@ public class MovieServlet  extends HttpServlet {
     }
 
     private String getQuery() {
-        return "SELECT m.id AS mId, m.title AS mTitle, m.year AS mYear, m.director AS mDirector, r.rating AS mRating, " +
-                "   GROUP_CONCAT(DISTINCT g.name) AS mGenres, " +
-                "   GROUP_CONCAT(DISTINCT CONCAT(s.id, ',', s.name)) AS mStars " +
-                "FROM movies m " +
-                "LEFT JOIN genres_in_movies gim ON m.id = gim.movieId " +
-                "LEFT JOIN genres g ON gim.genreId = g.id " +
-                "LEFT JOIN stars_in_movies sim ON m.id = sim.movieId " +
-                "LEFT JOIN stars s ON sim.starId = s.id " +
-                "LEFT JOIN ratings r ON m.id = r.movieId " +
-                "WHERE m.id = ? " +
-                "GROUP BY m.id, m.title, m.year, m.director, r.rating;";
+        return "SELECT s.name AS sName, s.birthYear AS sYear, " +
+                "   GROUP_CONCAT(DISTINCT CONCAT(m.id, ',', m.title)) AS sMovies " +
+                "FROM stars s " +
+                "LEFT JOIN stars_in_movies sim ON s.id = sim.starId " +
+                "LEFT JOIN movies m ON sim.movieId = m.id " +
+                "WHERE s.id = ? " +
+                "GROUP BY sName, sYear; ";
     }
 }
 

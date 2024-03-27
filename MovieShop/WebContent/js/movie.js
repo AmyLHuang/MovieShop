@@ -15,7 +15,6 @@ function getParameterByName(target) {
 }
 
 function handleResult(resultData) {
-    console.log(resultData);
     let html = "";
 
     let titleElement = jQuery(".title");
@@ -38,12 +37,9 @@ function handleResult(resultData) {
     let starsTableElement = jQuery("#starsTable");
     let starsArray = resultData["movieStars"].split(",");
     for (let i = 0; i < starsArray.length; i += 2) {
-        html += "<tr><td><a href='#'>" + starsArray[i+1] + "</a></td></tr>";
+        html += "<tr><td><a href='star.html?id=" + starsArray[i] + "'>" + starsArray[i+1] + "</a></td></tr>";
     }
     starsTableElement.append(html);
-
-
-
 }
 
 jQuery.ajax({

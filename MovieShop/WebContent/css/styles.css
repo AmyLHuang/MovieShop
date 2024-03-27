@@ -52,7 +52,6 @@ body {
 
 .info {
     margin-bottom: 10px;
-
 }
 
 .info span {
@@ -63,6 +62,11 @@ body {
 .genres a,
 .stars a {
     color: blueviolet;
+}
+
+.genres a:hover,
+.stars a:hover {
+    color: violet;
 }
 
 .topnav {
@@ -148,6 +152,14 @@ table {
     font-size: 12pt;
 }
 
+table a {
+    color: blue;
+}
+
+table a:hover {
+    color: mediumblue;
+}
+
 td, th {
     border: 1px solid #dddddd;
     text-align: left;
@@ -164,11 +176,6 @@ tr:nth-child(even) {
     padding: 4px 14px;
     background-color: blueviolet;
     color: white;
+    cursor: pointer;
+    border-radius: 5px;
 }
-
-/*.footer {*/
-/*    text-align: center;*/
-/*    margin-top: auto;*/
-/*    background-color: rgb(39, 31, 31);*/
-/*    color: white;*/
-/*}*/

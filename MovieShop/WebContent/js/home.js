@@ -1,11 +1,10 @@
 function handleResult(resultData) {
-    console.log(resultData);
     let movieContainerElement = jQuery(".movies-container");
     let html = "";
     for (let i = 0; i < resultData.length; i++) {
         html += '<div class="movie">'
         html += '   <div class="movie-header">'
-        html += '       <h2 class="movie-title"><a href="./movie.html?id=' + resultData[i]["movieId"] + '">' + resultData[i]["movieTitle"] + '</a></h2>'
+        html += '       <h2 class="movie-title"><a href="movie.html?id=' + resultData[i]["movieId"] + '">' + resultData[i]["movieTitle"] + '</a></h2>'
         html += '   </div>'
         html += '   <div class="movie-content">'
         html += '       <div class="info">'
@@ -19,7 +18,7 @@ function handleResult(resultData) {
         html += '           <br/><span>Stars:</span>'
         let starsArray = resultData[i]["movieStars"].split(",");
         for (let j = 0; j < starsArray.length; j += 2) {
-            html += '       <span class="stars"><a href="#">' + starsArray[j+1] + '</a></span>'
+            html += '       <span class="stars"><a href="star.html?id=' + starsArray[j] + '">' + starsArray[j+1] + '</a></span>'
         }
         html += '           <br/><span class="rating">Rating:</span> ' + resultData[i]["movieRating"]
         html += '       </div>'
