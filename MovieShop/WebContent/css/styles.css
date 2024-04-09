@@ -7,6 +7,14 @@ body {
     min-height: 100vh;
 }
 
+a {
+    color: blueviolet;
+}
+
+a:hover {
+    color: violet;
+}
+
 .movies-container {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
@@ -57,16 +65,6 @@ body {
 .info span {
     font-weight: bold;
     color: black;
-}
-
-.genres a,
-.stars a {
-    color: blueviolet;
-}
-
-.genres a:hover,
-.stars a:hover {
-    color: violet;
 }
 
 .topnav {

@@ -13,7 +13,7 @@ function handleResult(resultData) {
         html += '           <span>Genres:</span>'
         let genresArray = resultData[i]["movieGenres"].split(",");
         for (let j = 0; j < genresArray.length; j += 2) {
-            html += '       <span class="genres"><a href="#">' + genresArray[j+1] + '</a></span>'
+            html += '       <span class="genres"><a href="movies.html?action=browse-genre&value=' + genresArray[j+1] + '">' + genresArray[j+1] + '</a></span>'
         }
         html += '           <br/><span>Stars:</span>'
         let starsArray = resultData[i]["movieStars"].split(",");
