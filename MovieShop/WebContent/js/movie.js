@@ -45,6 +45,9 @@ function handleResult(resultData) {
 jQuery.ajax({
     dataType: "json",
     method: "GET",
-    url: "api/movie?id=" + getParameterByName('id'),
+    url: "api/movie",
+    data: {
+        id: getParameterByName('id'),
+    },
     success: (resultData) => handleResult(resultData),
 });
