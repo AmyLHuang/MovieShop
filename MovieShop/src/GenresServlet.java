@@ -16,7 +16,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
 @WebServlet(name="GenresServlet", urlPatterns = "/api/genres")
-public class GenresServlet  extends HttpServlet {
+public class GenresServlet extends HttpServlet {
     private DataSource dataSource;
 
     public void init(ServletConfig config) {

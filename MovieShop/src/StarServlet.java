@@ -15,7 +15,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
 @WebServlet(name="StarServlet", urlPatterns = "/api/star")
-public class StarServlet  extends HttpServlet {
+public class StarServlet extends HttpServlet {
     private DataSource dataSource;
 
     public void init(ServletConfig config) {

@@ -16,7 +16,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
 @WebServlet(name="TopRatedMoviesServlet", urlPatterns = "/api/top-rated-movies")
-public class TopRatedMoviesServlet  extends HttpServlet {
+public class TopRatedMoviesServlet extends HttpServlet {
     private DataSource dataSource;
 
     public void init(ServletConfig config) {

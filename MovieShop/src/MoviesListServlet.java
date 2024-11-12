@@ -15,8 +15,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
-@WebServlet(name="MoviesServlet", urlPatterns = "/api/movies")
-public class MoviesServlet  extends HttpServlet {
+@WebServlet(name="MoviesListServlet", urlPatterns = "/api/movies")
+public class MoviesListServlet extends HttpServlet {
     private DataSource dataSource;
 
     public void init(ServletConfig config) {
