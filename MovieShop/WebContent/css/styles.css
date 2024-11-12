@@ -245,3 +245,67 @@ tr:nth-child(even) {
 .button-container button:hover {
     background-color: violet;
 }
+
+
+/* Styling for Login */
+
+.login_logo {
+    margin-left: 25px;
+}
+
+.input_form {
+    margin: 2% auto;
+    padding: 2%;
+    background-color: #f0f0f0;
+    border-radius: 8px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    width: 350px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.input_form h2 {
+    /*text-align: center;*/
+    color: #333;
+    margin-top: 0;
+    margin-bottom: 1%;
+    padding: 3%;
+}
+
+.input_form label, .input_form div, .input_form p {
+    width: 90%;
+}
+
+.input_form label {
+    margin-bottom: 10px;
+}
+
+.input_form input[type="text"], .input_form input[type="password"] {
+    width: 100%;
+    padding: 2%;
+    margin: 2% 0;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-sizing: border-box;
+}
+
+.input_form input[type="submit"] {
+    width: 90%;
+    background-color: rgba(0, 51, 189, 0.98);
+    color: white;
+    margin-top: 5%;
+    padding: 3%;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.input_form input[type="submit"]:hover {
+    background-color: #012bbb;
+}
+
+.login_error_msg {
+    color: red;
+    text-align: center;
+}

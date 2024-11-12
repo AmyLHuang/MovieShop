@@ -104,7 +104,7 @@ if (action === "browseGenre" || action === "browseTitle" || action === "search")
         success: (resultData) => handleResult(resultData)
     });
 } else {
-    $.ajax({
+    jQuery.ajax({
         dataType: "json",
         method: "GET",
         url: "api/movies-list",
