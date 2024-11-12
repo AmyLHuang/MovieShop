@@ -34,7 +34,7 @@ public class MoviesListServlet extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         response.setContentType("application/json");
-        HttpSession session = request.getSession();
+        HttpSession session = request.getSession(false);
         populateViewOrdering();
 
         PrintWriter writer = response.getWriter();
@@ -73,14 +73,14 @@ public class MoviesListServlet extends HttpServlet {
     }
 
     private static void populateViewOrdering() {
-        viewOrdering.put("TascRasc", "mTitle ASC, mRating ASC");
         viewOrdering.put("TascRdsc", "mTitle ASC, mRating DESC");
-        viewOrdering.put("TdscRasc", "mTitle DESC, mRating ASC");
+        viewOrdering.put("TascRasc", "mTitle ASC, mRating ASC");
         viewOrdering.put("TdscRdsc", "mTitle DESC, mRating DESC");
-        viewOrdering.put("RascTasc", "mRating ASC, mTitle ASC");
+        viewOrdering.put("TdscRasc", "mTitle DESC, mRating ASC");
         viewOrdering.put("RascTdsc", "mRating ASC, mTitle DESC");
-        viewOrdering.put("RdscTasc", "mRating DESC, mTitle ASC");
+        viewOrdering.put("RascTasc", "mRating ASC, mTitle ASC");
         viewOrdering.put("RdscTdsc", "mRating DESC, mTitle DESC");
+        viewOrdering.put("RdscTasc", "mRating DESC, mTitle ASC");
     }
 
     private static void setSessionAttributes(HttpServletRequest request, HttpSession session, String action) {
@@ -91,7 +91,7 @@ public class MoviesListServlet extends HttpServlet {
                 session.setAttribute("action", action);
                 session.setAttribute("value", request.getParameter("value"));
                 session.setAttribute("limit", 10);
-                session.setAttribute("order", viewOrdering.get("TascRasc"));
+                session.setAttribute("order", viewOrdering.get("TascRdsc"));
                 session.setAttribute("offset", 0);
                 break;
             case "advancedSearch":
@@ -102,7 +102,7 @@ public class MoviesListServlet extends HttpServlet {
                 session.setAttribute("director", request.getParameter("director"));
                 session.setAttribute("star", request.getParameter("star"));
                 session.setAttribute("limit", 10);
-                session.setAttribute("order", viewOrdering.get("TascRasc"));
+                session.setAttribute("order", viewOrdering.get("TascRdsc"));
                 session.setAttribute("offset", 0);
                 break;
             case "view": {
@@ -133,11 +133,11 @@ public class MoviesListServlet extends HttpServlet {
         }
     }
 
-    private JsonArray getJsonElements(HttpSession session, Connection conn, String sessionAction) throws SQLException {
+    private JsonArray getJsonElements(HttpSession session, Connection conn, String action) throws SQLException {
         JsonArray jsonArray = null;
         String order = (String) session.getAttribute("order");
         String whereClause;
-        if ("browseGenre".equals(sessionAction)) {
+        if ("browseGenre".equals(action)) {
             whereClause = "WHERE m.id IN ( SELECT m.id FROM movies m LEFT JOIN genres_in_movies gim ON m.id = gim.movieId " +
                 "LEFT JOIN genres g ON gim.genreId = g.id WHERE g.name = ? ) ";
             try (PreparedStatement preparedStatement = conn.prepareStatement(getQuery(whereClause, order))) {
@@ -148,7 +148,7 @@ public class MoviesListServlet extends HttpServlet {
                     jsonArray = getJsonArray(resultSet);
                 }
             }
-        } else if ("browseTitle".equals(sessionAction)) {
+        } else if ("browseTitle".equals(action)) {
             whereClause = "WHERE LOWER(m.title) LIKE ? OR (? = '*' AND NOT m.title REGEXP '^[A-Za-z0-9]') ";
             try (PreparedStatement preparedStatement = conn.prepareStatement(getQuery(whereClause, order))) {
                 String tempVal = (String) session.getAttribute("value");
@@ -160,7 +160,7 @@ public class MoviesListServlet extends HttpServlet {
                     jsonArray = getJsonArray(resultSet);
                 }
             }
-        } else if (sessionAction.equals("search")) {
+        } else if (action.equals("search")) {
             whereClause = "WHERE MATCH(title) AGAINST (? IN BOOLEAN MODE) ";
             try (PreparedStatement preparedStatement = conn.prepareStatement(getQuery(whereClause, order))) {
                 String tempQuery = (String) session.getAttribute("value");
@@ -176,7 +176,7 @@ public class MoviesListServlet extends HttpServlet {
                     jsonArray = getJsonArray(resultSet);
                 }
             }
-        } else if (sessionAction.equals("advancedSearch")) {
+        } else if (action.equals("advancedSearch")) {
             whereClause = "WHERE (LOWER(m.title) LIKE ? OR ? = '') AND (CAST(m.year as char) LIKE ? OR ? = '') AND " +
                 "(LOWER(m.director) LIKE ? OR ? = '') AND (LOWER(s.name) LIKE ? OR ? = '') ";
             try (PreparedStatement preparedStatement = conn.prepareStatement(getQuery(whereClause, order))) {
@@ -204,8 +204,8 @@ public class MoviesListServlet extends HttpServlet {
 
     private String getQuery(String whereClause, String order) {
         return "SELECT m.id AS mId, m.title AS mTitle, m.year AS mYear, m.director AS mDirector, r.rating AS mRating, " +
-            "   SUBSTRING_INDEX(GROUP_CONCAT(DISTINCT CONCAT(g.id, ',', g.name)), ',', 6) AS mGenres, " +
-            "   SUBSTRING_INDEX(GROUP_CONCAT(DISTINCT CONCAT(s.id, ',', s.name)), ',', 6) AS mStars " +
+            "   SUBSTRING_INDEX(GROUP_CONCAT(DISTINCT CONCAT(g.id, ',', g.name) ORDER BY g.name ASC), ',', 6) AS mGenres, " +
+            "   SUBSTRING_INDEX(GROUP_CONCAT(DISTINCT CONCAT(s.id, ',', s.name) ORDER BY stars_in_movies_count DESC, s.name ASC), ',', 6) AS mStars " +
             "FROM movies m " +
             "LEFT JOIN genres_in_movies gim ON m.id = gim.movieId " +
             "LEFT JOIN genres g ON gim.genreId = g.id " +

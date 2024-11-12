@@ -23,7 +23,7 @@
 
     <h1 id="pageTitle" class="pageTitle" style="text-align: center;"></h1>
     <div style="text-align: center">
-        <form ACTION="#" METHOD="GET" id="view-edit-form">
+        <form action="#" method="GET" id="view-edit-form">
             <label for="limitSelect">Display</label>
             <select id="limitSelect" name="limit">
                 <option value="10">10</option>
@@ -34,21 +34,22 @@
 
             <label for="orderSelect"> Movies, Sort By </label>
             <select id="orderSelect" name="order">
-                <option value="TascRasc">Title ASC, Rating ASC</option>
                 <option value="TascRdsc">Title ASC, Rating DESC</option>
-                <option value="TdscRasc">Title DESC, Rating ASC</option>
+                <option value="TascRasc">Title ASC, Rating ASC</option>
                 <option value="TdscRdsc">Title DESC, Rating DESC</option>
-                <option value="RascTasc">Rating ASC, Title ASC</option>
+                <option value="TdscRasc">Title DESC, Rating ASC</option>
                 <option value="RascTdsc">Rating ASC, Title DESC</option>
-                <option value="RdscTasc">Rating DESC, Title ASC</option>
+                <option value="RascTasc">Rating ASC, Title ASC</option>
                 <option value="RdscTdsc">Rating DESC, Title DESC</option>
+                <option value="RdscTasc">Rating DESC, Title ASC</option>
             </select>
-            <input TYPE="HIDDEN" name="action" id="query-input" value="view">
-            <input TYPE="SUBMIT" VALUE="Edit View">
+            <input type="hidden" name="action" value="view">
+            <input type="submit" value="Edit View">
         </form>
     </div>
+    <div id="empty"></div>
     <div class="movies-container"></div>
-    <div id="change-page-container" style="text-align: center; margin-bottom: 50px;"></div>
+    <div id="change-page-container"></div>
 
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <script src="js/movies-list.js"></script>

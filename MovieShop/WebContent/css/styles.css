@@ -200,10 +200,12 @@ tr:nth-child(even) {
 
 #titles-grid-container {
     grid-template-columns: repeat(auto-fill, minmax(28px, 1fr));
+    margin-bottom: 25px;
 }
 
 #genres-grid-container {
     grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+    margin-bottom: 25px;
 }
 
 #search-inputs {
@@ -253,7 +255,6 @@ tr:nth-child(even) {
     align-items: center;
     gap: 10px;
 }
-
 
 /* Styling for Login */
 
@@ -316,4 +317,11 @@ tr:nth-child(even) {
 .login_error_msg {
     color: red;
     text-align: center;
+}
+
+#empty {
+    text-align: center;
+    margin: 15px;
+    color: red;
+    font-weight: bold;
 }

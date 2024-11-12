@@ -1,3 +1,4 @@
+import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import jakarta.servlet.ServletConfig;
 import jakarta.servlet.annotation.WebServlet;
@@ -32,16 +33,22 @@ public class StarServlet extends HttpServlet {
         String id = request.getParameter("id");
 
         try (Connection conn = dataSource.getConnection()) {
-            JsonObject jsonObject = new JsonObject();
+            JsonArray jsonArray = new JsonArray();
             PreparedStatement statement = conn.prepareStatement(getQuery());
             statement.setString(1, id);
+
             ResultSet resultSet = statement.executeQuery();
-            if (resultSet.next()) {
-                jsonObject.addProperty("starName", resultSet.getString("sName"));
-                jsonObject.addProperty("starYear", resultSet.getString("sYear"));
-                jsonObject.addProperty("starMovies", resultSet.getString("sMovies"));
+            while (resultSet.next()) {
+                JsonObject jsonObject = new JsonObject();
+                jsonObject.addProperty("starName", resultSet.getString("name"));
+                jsonObject.addProperty("starDoB", resultSet.getString("birthYear"));
+                jsonObject.addProperty("movieId", resultSet.getString("movieId"));
+                jsonObject.addProperty("movieTitle", resultSet.getString("title"));
+                jsonObject.addProperty("movieYear", resultSet.getString("year"));
+                jsonObject.addProperty("movieDirector", resultSet.getString("director"));
+                jsonArray.add(jsonObject);
             }
-            writer.write(jsonObject.toString());
+            writer.write(jsonArray.toString());
             resultSet.close();
             statement.close();
             response.setStatus(200);
@@ -57,13 +64,13 @@ public class StarServlet extends HttpServlet {
     }
 
     private String getQuery() {
-        return "SELECT s.name AS sName, s.birthYear AS sYear, " +
-                "   GROUP_CONCAT(DISTINCT CONCAT(m.id, ',', m.title)) AS sMovies " +
-                "FROM stars s " +
-                "LEFT JOIN stars_in_movies sim ON s.id = sim.starId " +
-                "LEFT JOIN movies m ON sim.movieId = m.id " +
-                "WHERE s.id = ? " +
-                "GROUP BY sName, sYear; ";
+        return "SELECT s.name AS name, s.birthYear AS birthYear, m.id AS movieId, " +
+            "m.title AS title, m.year AS year, m.director AS director " +
+            "FROM stars s " +
+            "LEFT JOIN stars_in_movies sim ON s.id = sim.starId " +
+            "LEFT JOIN movies m ON sim.movieId = m.id " +
+            "WHERE s.id = ? " +
+            "ORDER BY year DESC, title ASC ;";
     }
 }
 

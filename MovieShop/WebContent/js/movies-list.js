@@ -21,6 +21,14 @@ function handleResult(resultData) {
     $("#limitSelect").val(resultData[resultData.length-1]['limit']);
     $("#orderSelect").val(resultData[resultData.length-1]['order']);
 
+    if (resultData.length === 1) {
+        if (resultData[0]['offset'] === 0) {
+            jQuery("#empty").append("No Results!");
+        } else {
+            jQuery("#empty").append("No More Results!");
+        }
+    }
+
     function parseDataIntoHtml() {
         let html = "";
         for (let i = 0; i < resultData.length-1; i++) {
@@ -64,7 +72,7 @@ function handleResult(resultData) {
     changePageContainerElement.append(componentHTML);
     componentHTML = '<p> Page ' + (resultData[resultData.length-1]["offset"]/resultData[resultData.length-1]["limit"]+1) + '</\p>';
     changePageContainerElement.append(componentHTML);
-    componentHTML = '<form id="next-form" action="#" method="get"><input type="hidden" name="action" id="q-input" value="next">';
+    componentHTML = '<form id="next-form" action="#" method="get"><input type="hidden" name="action" value="next">';
     if (resultData[resultData.length-1]["limit"] === resultData[resultData.length-1]["numResults"]) {
         componentHTML += '<input type="submit" value="Next >"></form>';
     } else {

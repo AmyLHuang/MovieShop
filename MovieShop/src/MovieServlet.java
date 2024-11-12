@@ -62,14 +62,20 @@ public class MovieServlet  extends HttpServlet {
 
     private String getQuery() {
         return "SELECT m.id AS mId, m.title AS mTitle, m.year AS mYear, m.director AS mDirector, r.rating AS mRating, " +
-                "   GROUP_CONCAT(DISTINCT g.name) AS mGenres, " +
-                "   GROUP_CONCAT(DISTINCT CONCAT(s.id, ',', s.name)) AS mStars " +
+                "   GROUP_CONCAT(DISTINCT g.name ORDER BY g.name ASC) AS mGenres, " +
+                "   GROUP_CONCAT(DISTINCT CONCAT(s.id, ',', s.name) ORDER BY smc.stars_in_movies_count DESC, s.name ASC) AS mStars " +
                 "FROM movies m " +
                 "LEFT JOIN genres_in_movies gim ON m.id = gim.movieId " +
                 "LEFT JOIN genres g ON gim.genreId = g.id " +
                 "LEFT JOIN stars_in_movies sim ON m.id = sim.movieId " +
                 "LEFT JOIN stars s ON sim.starId = s.id " +
                 "LEFT JOIN ratings r ON m.id = r.movieId " +
+                "LEFT JOIN ( " +
+                "    SELECT s.id AS starId, COUNT(sim.movieId) AS stars_in_movies_count " +
+                "    FROM stars s " +
+                "    LEFT JOIN stars_in_movies sim ON s.id = sim.starId " +
+                "    GROUP BY s.id " +
+                ") smc ON s.id = smc.starId " +
                 "WHERE m.id = ? " +
                 "GROUP BY m.id, m.title, m.year, m.director, r.rating;";
     }

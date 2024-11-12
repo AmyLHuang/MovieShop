@@ -29,7 +29,7 @@ function handleResult(resultData) {
     let genresTableElement = jQuery("#genresTable");
     let genresArray = resultData["movieGenres"].split(",");
     for (let i = 0; i < genresArray.length; i++) {
-        html += "<tr><td>" + genresArray[i] + "</td></tr>";
+        html += '<tr><td><a href="movies-list.html?action=browseGenre&value=' + genresArray[i] + '">' + genresArray[i] + '</a></td></tr>';
     }
     genresTableElement.append(html);
 

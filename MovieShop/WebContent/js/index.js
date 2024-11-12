@@ -1,7 +1,7 @@
 function handleResult(resultData) {
     let html = ""
     let genresContainerElement = jQuery("#genres-grid-container");
-    for (let i = 0; i < resultData.length; i += 2) {
+    for (let i = 0; i < resultData.length; i++) {
         html += '<p class="center"> <a href="movies-list.html?action=browseGenre&value=' + resultData[i]["gName"] + '">' +
             resultData[i]["gName"] + '</a></p>';
     }
