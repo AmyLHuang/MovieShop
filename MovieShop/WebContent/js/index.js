@@ -3,7 +3,7 @@ function handleResult(resultData) {
     let html = ""
     let genresContainerElement = jQuery("#genres-grid-container");
     for (let i = 0; i < resultData.length; i += 2) {
-        html += '<p class="center"> <a href="movies.html?action=browse-genre&value=' + resultData[i]["gName"] + '">' +
+        html += '<p class="center"> <a href="movies-list.html?action=browse-genre&value=' + resultData[i]["gName"] + '">' +
             resultData[i]["gName"] + '</a></p>';
     }
     genresContainerElement.append(html);
@@ -13,7 +13,7 @@ function handleResult(resultData) {
         'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', '*'];
     let titlesContainerElement = jQuery("#titles-grid-container");
     for (let i = 0; i < titles.length; i++) {
-        html += '<p class="center"> <a href="movies.html?action=browse-title&value=' + titles[i] + '">' + titles[i] + '</a></p>'
+        html += '<p class="center"> <a href="movies-list.html?action=browse-title&value=' + titles[i] + '">' + titles[i] + '</a></p>'
     }
     titlesContainerElement.append(html);
 }
