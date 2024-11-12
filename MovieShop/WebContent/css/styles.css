@@ -246,6 +246,14 @@ tr:nth-child(even) {
     background-color: violet;
 }
 
+#change-page-container {
+    margin-bottom: 25px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
 
 /* Styling for Login */
 

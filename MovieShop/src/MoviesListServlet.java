@@ -204,9 +204,8 @@ public class MoviesListServlet extends HttpServlet {
 
     private String getQuery(String whereClause, String order) {
         return "SELECT m.id AS mId, m.title AS mTitle, m.year AS mYear, m.director AS mDirector, r.rating AS mRating, " +
-            "GROUP_CONCAT(DISTINCT g.name ORDER BY g.name ASC) AS mGenres, " +
-            "GROUP_CONCAT(DISTINCT s.name ORDER BY stars_in_movies_count DESC, s.name ASC) AS mStars, " +
-            "GROUP_CONCAT(DISTINCT s.id ORDER BY stars_in_movies_count DESC, s.name ASC) AS mStarsId " +
+            "   SUBSTRING_INDEX(GROUP_CONCAT(DISTINCT CONCAT(g.id, ',', g.name)), ',', 6) AS mGenres, " +
+            "   SUBSTRING_INDEX(GROUP_CONCAT(DISTINCT CONCAT(s.id, ',', s.name)), ',', 6) AS mStars " +
             "FROM movies m " +
             "LEFT JOIN genres_in_movies gim ON m.id = gim.movieId " +
             "LEFT JOIN genres g ON gim.genreId = g.id " +
@@ -236,7 +235,6 @@ public class MoviesListServlet extends HttpServlet {
                 jsonObject.addProperty("movieRating", resultSet.getString("mRating"));
                 jsonObject.addProperty("movieGenres", resultSet.getString("mGenres"));
                 jsonObject.addProperty("movieStars", resultSet.getString("mStars"));
-                jsonObject.addProperty("movieStarsId", resultSet.getString("mStarsId"));
                 jsonArray.add(jsonObject);
             }
         } catch (SQLException e) {

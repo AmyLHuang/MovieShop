@@ -15,21 +15,15 @@ function getParameterByName(target) {
 }
 
 function handleResult(resultData) {
-    console.log("@movie-list.js -- length of resultData: " + resultData.length);
-    jQuery("#titleElement").append(resultData[resultData.length-1]["value"]);
-
-    if (resultData.length === 0) {
-        // TODO: display message
-        // TODO: have button to go back
-        return;
-    }
+    console.log("@movies-list.js -- length of resultData: " + resultData.length);
+    jQuery("#pageTitle").append(resultData[resultData.length-1]["value"]);
 
     $("#limitSelect").val(resultData[resultData.length-1]['limit']);
     $("#orderSelect").val(resultData[resultData.length-1]['order']);
 
     function parseDataIntoHtml() {
         let html = "";
-        for (let i = 0; i < resultData.length; i++) {
+        for (let i = 0; i < resultData.length-1; i++) {
             html += '<div class="movie">'
             html += '   <div class="movie-header">'
             html += '       <h2 class="movie-title"><a href="movie.html?id=' + resultData[i]["movieId"] + '">' + resultData[i]["movieTitle"] + '</a></h2>'
@@ -41,7 +35,7 @@ function handleResult(resultData) {
             html += '           <span>Genres:</span>'
             let genresArray = resultData[i]["movieGenres"].split(",");
             for (let j = 0; j < genresArray.length; j += 2) {
-                html += '       <span class="genres"><a href="movies-list.html?action=browse-genre&value=' + genresArray[j + 1] + '">' + genresArray[j + 1] + '</a></span>'
+                html += '       <span class="genres"><a href="movies-list.html?action=browseGenre&value=' + genresArray[j + 1] + '">' + genresArray[j + 1] + '</a></span>'
             }
             html += '           <br/><span>Stars:</span>'
             let starsArray = resultData[i]["movieStars"].split(",");
@@ -68,7 +62,7 @@ function handleResult(resultData) {
         componentHTML += '<input type="submit" value="< Prev" disabled></form>';
     }
     changePageContainerElement.append(componentHTML);
-    componentHTML = '<p>' + (resultData[resultData.length-1]["offset"]/resultData[resultData.length-1]["limit"]+1) + '</\p>';
+    componentHTML = '<p> Page ' + (resultData[resultData.length-1]["offset"]/resultData[resultData.length-1]["limit"]+1) + '</\p>';
     changePageContainerElement.append(componentHTML);
     componentHTML = '<form id="next-form" action="#" method="get"><input type="hidden" name="action" id="q-input" value="next">';
     if (resultData[resultData.length-1]["limit"] === resultData[resultData.length-1]["numResults"]) {
@@ -81,12 +75,12 @@ function handleResult(resultData) {
 
 $(document).on('click', '#prev-form input[type="submit"]', function (event) {
     event.preventDefault();
-    window.location.href = "movie-list.html?action=prev";
+    window.location.href = "movies-list.html?action=prev";
 });
 
 $(document).on('click', '#next-form input[type="submit"]', function (event) {
     event.preventDefault();
-    window.location.href = "movie-list.html?action=next";
+    window.location.href = "movies-list.html?action=next";
 });
 
 let action = getParameterByName('action');

@@ -24,7 +24,7 @@
     <h1 id="pageTitle" class="pageTitle" style="text-align: center;"></h1>
     <div style="text-align: center">
         <form ACTION="#" METHOD="GET" id="view-edit-form">
-            <label for="limitSelect">Limit:</label>
+            <label for="limitSelect">Display</label>
             <select id="limitSelect" name="limit">
                 <option value="10">10</option>
                 <option value="25">25</option>
@@ -32,16 +32,16 @@
                 <option value="100">100</option>
             </select>
 
-            <label for="orderSelect">Sort By:</label>
+            <label for="orderSelect"> Movies, Sort By </label>
             <select id="orderSelect" name="order">
-                <option value="TascRasc">Title↑ Rating↑</option>
-                <option value="TascRdsc">Title↑ Rating↓</option>
-                <option value="TdscRasc">Title↓ Rating↑</option>
-                <option value="TdscRdsc">Title↓ Rating↓</option>
-                <option value="RascTasc">Rating↑ Title↑</option>
-                <option value="RascTdsc">Rating↑ Title↓</option>
-                <option value="RdscTasc">Rating↓ Title↑</option>
-                <option value="RdscTdsc">Rating↓ Title↓</option>
+                <option value="TascRasc">Title ASC, Rating ASC</option>
+                <option value="TascRdsc">Title ASC, Rating DESC</option>
+                <option value="TdscRasc">Title DESC, Rating ASC</option>
+                <option value="TdscRdsc">Title DESC, Rating DESC</option>
+                <option value="RascTasc">Rating ASC, Title ASC</option>
+                <option value="RascTdsc">Rating ASC, Title DESC</option>
+                <option value="RdscTasc">Rating DESC, Title ASC</option>
+                <option value="RdscTdsc">Rating DESC, Title DESC</option>
             </select>
             <input TYPE="HIDDEN" name="action" id="query-input" value="view">
             <input TYPE="SUBMIT" VALUE="Edit View">
