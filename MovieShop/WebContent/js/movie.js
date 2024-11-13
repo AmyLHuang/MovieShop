@@ -25,6 +25,18 @@ function handleResult(resultData) {
     html += "<p>Rating: " + resultData["movieRating"] + "</p>";
     infoElement.append(html);
 
+    let addToCartBtn = jQuery("#addToCartBtn");
+    html = '';
+    html += '       <div class="add-to-cart-button" data-movie-id="' + resultData["movieId"] + '">';
+    html += '           <form method="post">';
+    html += '               <input name="action" type="hidden" id="add-cart" value="add">';
+    html += '               <input name="movieId" type="hidden" value="' + resultData["movieId"] + '">';
+    html += '               <input name="movieTitle" type="hidden" value="' + resultData["movieTitle"] + '">';
+    html += '               <input type="submit" class="add-to-cart-button-inner" value="Add to Cart">';
+    html += '           </form>';
+    html += '       </div>';
+    addToCartBtn.append(html);
+
     html = ""
     let genresTableElement = jQuery("#genresTable");
     let genresArray = resultData["movieGenres"].split(",");
@@ -41,6 +53,36 @@ function handleResult(resultData) {
     }
     starsTableElement.append(html);
 }
+
+function handleCartArray(resultArray) {
+    let item_list = $("#item_list");
+    let res = "<ul>";
+    for (let i = 0; i < resultArray.length; i++) {
+        res += "<li>" + resultArray[i] + "</li>";
+    }
+    res += "</ul>";
+
+    // clear the old array and show the new array in the frontend
+    item_list.html("");
+    item_list.append(res);
+}
+
+$(document).on('submit', '.add-to-cart-button form', function(event) {
+    event.preventDefault();
+    const formData = $(this).serialize();
+    const params = new URLSearchParams(formData);
+    const mTitle = params.get('movieTitle');
+    jQuery.ajax({
+        method: 'POST',
+        url: 'api/cart',
+        data: formData,
+        success: resultDataString => {
+            let resultDataJson = JSON.parse(resultDataString);
+            handleCartArray(resultDataJson["previousItems"]);
+            window.alert("Successfully added " + mTitle);
+        }
+    });
+});
 
 jQuery.ajax({
     dataType: "json",
