@@ -1,27 +1,25 @@
 /**
  * Handle the items in cart list
- * @param resultItems jsonObject, movie IDs
- * @param resultTitles jsonObject, movie Titles
- * @param resultCounts jsonObject, quantity of movie in cart
+ * @param resultData jsonObject
  */
-function handleCartArray(resultItems, resultTitles, resultCounts) {
+function handleCartArray(resultData) {
     $("#cart_table_body tr").remove();
     let cartTableBodyElement = $("#cart_table_body");
     let overallTotalPrice = 0;
-    for (let i = 0; i < resultItems.length; i++) {
+    for (let i = 0; i < resultData["previousItems"].length; i++) {
         let html = "";
         html += '<tr>';
-        html += '    <td><a href="movie.html?id=' + resultItems[i] + '">' + resultTitles[i] + '</a></td>';
+        html += '    <td><a href="movie.html?id=' + resultData["previousItems"][i] + '">' + resultData["previousTitles"][i] + '</a></td>';
         html += '    <td>'
         html += '        <button class="quantity-button decrease-quantity">-</button>';
-        html += '        <span style="margin: auto 5px;" class="quantity-display" data-movie-id=' + resultItems[i] + '>' + resultCounts[i] + '</span>';
+        html += '        <span style="margin: auto 5px;" class="quantity-display" data-movie-id=' + resultData["previousItems"][i] + '>' + resultData["previousCounts"][i] + '</span>';
         html += '        <button class="quantity-button increase-quantity">+</button>';
         html += '    </td>';
-        html += '    <td><button class="delete-button" value=' + resultItems[i] + '>Delete</button></td>';
+        html += '    <td><button class="delete-button" value=' + resultData["previousItems"][i] + '>Delete</button></td>';
         html += '    <td>$42</td>';
-        html += '    <td>$'  + (42 * resultCounts[i]) + '</td>';
+        html += '    <td>$'  + (42 * resultData["previousCounts"][i]) + '</td>';
         html += '</tr>';
-        overallTotalPrice += 42 * resultCounts[i];
+        overallTotalPrice += 42 * resultData["previousCounts"][i];
         cartTableBodyElement.append(html);
     }
 
@@ -38,15 +36,12 @@ function handleCartArray(resultItems, resultTitles, resultCounts) {
     }
 }
 
-
 jQuery.ajax({
     dataType: "json",
     method: "GET",
     url: "api/cart?",
     data: {},
-    success: (resultData) => {
-        handleCartArray(resultData["previousItems"], resultData["previousTitles"], resultData["previousCounts"]);
-    }
+    success: (resultData) => {handleCartArray(resultData);}
 });
 
 $(document).on('click', '.quantity-button', function () {
@@ -55,12 +50,10 @@ $(document).on('click', '.quantity-button', function () {
     let currentAmount = parseInt(quantityDisplay.text(), 10);
 
     if ($(this).hasClass('decrease-quantity')) {
-        // Decrement button clicked
         if (currentAmount > 1) {
             currentAmount--;
         }
     } else if ($(this).hasClass('increase-quantity')) {
-        // Increment button clicked
         currentAmount++;
     }
     jQuery.ajax({

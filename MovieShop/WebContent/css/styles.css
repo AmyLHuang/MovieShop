@@ -377,3 +377,43 @@ tr:nth-child(even) {
     border-radius: 5px;
     margin-bottom: 10px;
 }
+
+
+/* Payment Form */
+#payment_form {
+    max-width: 22%;
+    margin: 5% auto;
+    padding: 2%;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+}
+
+#payment_form input[type="text"] {
+    width: 100%;
+    padding: 2%;
+    margin: 2% 0;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-sizing: border-box;
+}
+
+#payment_form input[type="submit"] {
+    width: 100%;
+    background-color: rgba(0, 51, 189, 0.98);
+    color: white;
+    margin-top: 5%;
+    padding: 3%;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+#payment_form input[type="submit"]:hover {
+    background-color: #012bbb;
+}
+
+#payment_error_msg {
+    color: red;
+    text-align: center;
+}
