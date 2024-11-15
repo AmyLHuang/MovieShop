@@ -225,21 +225,16 @@ public class MoviesListServlet extends HttpServlet {
 
     private static JsonArray getJsonArray(ResultSet resultSet) throws SQLException {
         JsonArray jsonArray = new JsonArray();
-        try {
-            while (resultSet.next()) {
-                JsonObject jsonObject = new JsonObject();
-                jsonObject.addProperty("movieId", resultSet.getString("mId"));
-                jsonObject.addProperty("movieTitle", resultSet.getString("mTitle"));
-                jsonObject.addProperty("movieYear", resultSet.getString("mYear"));
-                jsonObject.addProperty("movieDirector", resultSet.getString("mDirector"));
-                jsonObject.addProperty("movieRating", resultSet.getString("mRating"));
-                jsonObject.addProperty("movieGenres", resultSet.getString("mGenres"));
-                jsonObject.addProperty("movieStars", resultSet.getString("mStars"));
-                jsonArray.add(jsonObject);
-            }
-        } catch (SQLException e) {
-            System.out.println("Error while processing ResultSet: " + e.getMessage());
-            throw e;
+        while (resultSet.next()) {
+            JsonObject jsonObject = new JsonObject();
+            jsonObject.addProperty("movieId", resultSet.getString("mId"));
+            jsonObject.addProperty("movieTitle", resultSet.getString("mTitle"));
+            jsonObject.addProperty("movieYear", resultSet.getString("mYear"));
+            jsonObject.addProperty("movieDirector", resultSet.getString("mDirector"));
+            jsonObject.addProperty("movieRating", resultSet.getString("mRating"));
+            jsonObject.addProperty("movieGenres", resultSet.getString("mGenres"));
+            jsonObject.addProperty("movieStars", resultSet.getString("mStars"));
+            jsonArray.add(jsonObject);
         }
         return jsonArray;
     }

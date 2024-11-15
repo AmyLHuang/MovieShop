@@ -5,7 +5,6 @@ let payment_form = $("#payment_form");
  * @param resultData jsonObject
  */
 function handleResult(resultData) {
-    console.log(resultData);
     if (resultData["status"] === "success") {
         window.location.replace("confirmation.html");
     } else {
@@ -14,7 +13,7 @@ function handleResult(resultData) {
 }
 
 function handleResult2(resultData) {
-    jQuery("#totalPrice").text("Total Price: " + resultData["totalPrice"]);
+    jQuery("#totalPrice").text("Total Price: $" + resultData["totalPrice"]);
 }
 
 /**

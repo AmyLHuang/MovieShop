@@ -62,7 +62,7 @@ public class CartServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String item = request.getParameter("movieId");
         String title = request.getParameter("movieTitle");
-        HttpSession session = request.getSession();
+        HttpSession session = request.getSession(false);
 
         ArrayList<String> previousItems = (ArrayList<String>) session.getAttribute("previousItems");
         ArrayList<String> previousTitles = (ArrayList<String>) session.getAttribute("previousTitles");

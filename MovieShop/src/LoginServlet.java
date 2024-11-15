@@ -34,7 +34,6 @@ public class LoginServlet extends HttpServlet {
     String password = request.getParameter("password");
     JsonObject responseJsonObject = new JsonObject();
 
-    // Verify Username and Password
     try (Connection conn = dataSource.getConnection()) {
       request.getServletContext().log("LoginServlet Connected");
       int option = userExists(username, password, conn);
@@ -43,7 +42,7 @@ public class LoginServlet extends HttpServlet {
         request.getSession().setAttribute("user", username);
         responseJsonObject.addProperty("status", "success");
         responseJsonObject.addProperty("message", "success");
-//        session.setAttribute("customerId", getCustomerId(username, conn));
+        session.setAttribute("customerId", getCustomerId(username, conn));
       } else if (option == 1) {
         request.getServletContext().log("Login failed: password did not match");
         responseJsonObject.addProperty("status", "fail");

@@ -1,17 +1,17 @@
 <!doctype html>
 <html lang="en">
 <head>
-    <meta charset="utf-8">
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="css/styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <title>Cart</title>
+    <title>Confirmation</title>
 </head>
 <body>
     <nav class="topnav">
         <a href="index.html">Home</a>
         <a href="top-rated-movies.html">Top 20</a>
-        <a class="active" href="cart.html">Cart</a>
+        <a href="cart.html">Cart</a>
         <div class="search-container">
             <form action="movies-list.html">
                 <label><input type="text" placeholder="Search.." name="value"></label>
@@ -21,25 +21,22 @@
         </div>
     </nav>
 
-    <button class="button" onclick="window.history.back()">Go Back</button>
-    <h1 class="title">Cart</h1>
+    <button class="button" onclick="window.location.replace('index.html');">Back to Home</button>
 
-    <table id="cart_table" class="table">
+    <h1 class="title" style="margin-top: 35px;margin-bottom: 18px;">Confirmation</h1>
+    <table id="sale_table" class="table">
         <thead>
         <tr>
+            <th>Sale id</th>
             <th>Title</th>
-            <th>Quantity</th>
-            <th>Removal</th>
-            <th>Unit Price</th>
-            <th>Total</th>
+            <th>Price</th>
         </tr>
         </thead>
-        <tbody id=cart_table_body></tbody>
+        <tbody id=sale_table_body></tbody>
     </table>
-    <div id="checkout_btn"></div>
+
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script src="js/cart.js"></script>
+    <script src="js/confirmation.js"></script>
 </body>
-
 </html>

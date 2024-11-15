@@ -1,25 +1,27 @@
 /**
  * Handle the items in cart list
- * @param resultData jsonObject
+ * @param resultItems jsonObject, movie IDs
+ * @param resultTitles jsonObject, movie Titles
+ * @param resultCounts jsonObject, quantity of movie in cart
  */
-function handleCartArray(resultData) {
+function handleCartArray(resultItems, resultTitles, resultCounts) {
     $("#cart_table_body tr").remove();
     let cartTableBodyElement = $("#cart_table_body");
     let overallTotalPrice = 0;
-    for (let i = 0; i < resultData["previousItems"].length; i++) {
+    for (let i = 0; i < resultItems.length; i++) {
         let html = "";
         html += '<tr>';
-        html += '    <td><a href="movie.html?id=' + resultData["previousItems"][i] + '">' + resultData["previousTitles"][i] + '</a></td>';
+        html += '    <td><a href="movie.html?id=' + resultItems[i] + '">' + resultTitles[i] + '</a></td>';
         html += '    <td>'
         html += '        <button class="quantity-button decrease-quantity">-</button>';
-        html += '        <span style="margin: auto 5px;" class="quantity-display" data-movie-id=' + resultData["previousItems"][i] + '>' + resultData["previousCounts"][i] + '</span>';
+        html += '        <span style="margin: auto 5px;" class="quantity-display" data-movie-id=' + resultItems[i] + '>' + resultCounts[i] + '</span>';
         html += '        <button class="quantity-button increase-quantity">+</button>';
         html += '    </td>';
-        html += '    <td><button class="delete-button" value=' + resultData["previousItems"][i] + '>Delete</button></td>';
+        html += '    <td><button class="delete-button" value=' + resultItems[i] + '>Delete</button></td>';
         html += '    <td>$42</td>';
-        html += '    <td>$'  + (42 * resultData["previousCounts"][i]) + '</td>';
+        html += '    <td>$'  + (42 * resultCounts[i]) + '</td>';
         html += '</tr>';
-        overallTotalPrice += 42 * resultData["previousCounts"][i];
+        overallTotalPrice += 42 * resultCounts[i];
         cartTableBodyElement.append(html);
     }
 
@@ -41,7 +43,9 @@ jQuery.ajax({
     method: "GET",
     url: "api/cart?",
     data: {},
-    success: (resultData) => {handleCartArray(resultData);}
+    success: (resultData) => {
+        handleCartArray(resultData["previousItems"], resultData["previousTitles"], resultData["previousCounts"]);
+    }
 });
 
 $(document).on('click', '.quantity-button', function () {

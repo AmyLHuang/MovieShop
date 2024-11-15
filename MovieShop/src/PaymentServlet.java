@@ -31,7 +31,7 @@ public class PaymentServlet extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         response.setContentType("application/json");
-        HttpSession session = request.getSession();
+        HttpSession session = request.getSession(false);
 
         ArrayList<Integer> previousCounts = (ArrayList<Integer>) session.getAttribute("previousCounts");
         int price = 0;
