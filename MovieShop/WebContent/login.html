@@ -2,19 +2,67 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="css/login.css">
     <title>Login</title>
-    <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
-    <h2 class="login_logo">MovieShop</h2>
-
-    <form id="login_form" class="input_form" method="post" action="#">
-        <h2>Login</h2>
-        <label>Username: <br/> <input name="username" placeholder="Enter Username" type="text"> </label>
-        <label>Password: <br/> <input name="password" placeholder="Enter Password" type="password"> </label>
-        <input type="submit" value="Login">
-        <p id="login_error_msg" class="login_error_msg"></p>
-    </form>
+    <div id="auth-container">
+        <input id="slider" type="checkbox">
+        <div id="cover">
+            <p>Welcome to MovieShop<br/><small>A place to browse and buy movies</small></p>
+        </div>
+        <div id="auth-forms">
+            <!-- Sign Up -->
+            <section id="signup-form-container">
+                <header>Signup</header>
+                <form id="signup-form" method="post" action="#">
+                    <div class="input-group">
+                        <input id="first-name" type="text" required>
+                        <label for="first-name">First Name</label>
+                    </div>
+                    <div class="input-group">
+                        <input id="last-name" type="text" required>
+                        <label for="last-name">Last Name</label>
+                    </div>
+                    <div class="input-group">
+                        <input id="new-email" type="text" required>
+                        <label for="new-email">Email</label>
+                    </div>
+                    <div class="input-group">
+                        <input id="new-password" type="password" required>
+                        <label for="new-password">Password</label>
+                        <span id="toggle-signup-password" class="toggle-password">&#128065;</span>
+                    </div>
+                    <div class="button input-group">
+                        <input type="submit" value="Signup">
+                    </div>
+                </form>
+                <div class="link">Already have an account? <label for="slider">Login now</label></div>
+            </section>
+            <!-- Log In -->
+            <section id="login-form-container">
+                <header>Login</header>
+                <form id="login_form" method="post" action="#">
+                    <div class="input-group">
+                        <input id="email" type="text" required>
+                        <label for="email">Email</label>
+                    </div>
+                    <div class="input-group">
+                        <input id="password" type="password" required>
+                        <label for="password">Password</label>
+                        <span id="toggle-login-password" class="toggle-password">&#128065;</span>
+                    </div>
+                    <!-- <div class="text"><a href="#">Forgot password?</a></div> -->
+                    <div class="button input-group">
+                        <input type="submit" value="Login">
+                    </div>
+                </form>
+                <div class="link">Don't have an account? <label for="slider">Signup now</label></div>
+                <p id="login_error_msg" class="login_error_msg"></p>
+            </section>
+        </div>
+    </div>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="js/login.js"></script>

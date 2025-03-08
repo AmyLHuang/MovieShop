@@ -17,11 +17,11 @@ function handleCartArray(resultItems, resultTitles, resultCounts) {
         html += '        <span style="margin: auto 5px;" class="quantity-display" data-movie-id=' + resultItems[i] + '>' + resultCounts[i] + '</span>';
         html += '        <button class="quantity-button increase-quantity">+</button>';
         html += '    </td>';
-        html += '    <td><button class="delete-button" value=' + resultItems[i] + '>Delete</button></td>';
-        html += '    <td>$42</td>';
-        html += '    <td>$'  + (42 * resultCounts[i]) + '</td>';
+        html += '    <td><button class="delete-button" value=' + resultItems[i] + '>Remove</button></td>';
+        html += '    <td>$20</td>';
+        html += '    <td>$'  + (20 * resultCounts[i]) + '</td>';
         html += '</tr>';
-        overallTotalPrice += 42 * resultCounts[i];
+        overallTotalPrice += 20 * resultCounts[i];
         cartTableBodyElement.append(html);
     }
 

@@ -36,7 +36,7 @@ public class PaymentServlet extends HttpServlet {
         ArrayList<Integer> previousCounts = (ArrayList<Integer>) session.getAttribute("previousCounts");
         int price = 0;
         for (Integer itemCount : previousCounts) {
-            price += 42 * itemCount;
+            price += 20 * itemCount;
         }
 
         JsonObject responseJsonObject = new JsonObject();

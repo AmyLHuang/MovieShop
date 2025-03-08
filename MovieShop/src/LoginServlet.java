@@ -30,34 +30,46 @@ public class LoginServlet extends HttpServlet {
   protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
     response.setContentType("application/json");
     HttpSession session = request.getSession();
-    String username = request.getParameter("username");
-    String password = request.getParameter("password");
     JsonObject responseJsonObject = new JsonObject();
 
-    try (Connection conn = dataSource.getConnection()) {
-      request.getServletContext().log("LoginServlet Connected");
-      int option = userExists(username, password, conn);
-      if (option == 2) {
-        request.getServletContext().log("Login successful");
-        request.getSession().setAttribute("user", username);
-        responseJsonObject.addProperty("status", "success");
-        responseJsonObject.addProperty("message", "success");
-        session.setAttribute("customerId", getCustomerId(username, conn));
-      } else if (option == 1) {
-        request.getServletContext().log("Login failed: password did not match");
+    String action = request.getParameter("action");
+    System.out.println(action);
+
+    if (action.equals("login")) {
+      System.out.println("login condition");
+      String username = request.getParameter("username");
+      String password = request.getParameter("password");
+
+      try (Connection conn = dataSource.getConnection()) {
+        System.out.println("username: " + username + " password: " + password);
+        int option = userExists(username, password, conn);
+        System.out.println("option: " + option);
+        if (option == 2) {
+          request.getServletContext().log("Login successful");
+          request.getSession().setAttribute("user", username);
+          responseJsonObject.addProperty("status", "success");
+          responseJsonObject.addProperty("message", "success");
+          session.setAttribute("customerId", getCustomerId(username, conn));
+        } else if (option == 1) {
+          request.getServletContext().log("Login failed: password did not match");
+          responseJsonObject.addProperty("status", "fail");
+          responseJsonObject.addProperty("message", "Incorrect password");
+        } else if (option == 0) {
+          request.getServletContext().log("Login failed: username does not exist");
+          responseJsonObject.addProperty("status", "fail");
+          responseJsonObject.addProperty("message", "user " + username + " doesn't exist");
+        }
+        response.setStatus(200);
+      } catch (Exception e) {
         responseJsonObject.addProperty("status", "fail");
-        responseJsonObject.addProperty("message", "Incorrect password");
-      } else if (option == 0) {
-        request.getServletContext().log("Login failed: username does not exist");
-        responseJsonObject.addProperty("status", "fail");
-        responseJsonObject.addProperty("message", "user " + username + " doesn't exist");
+        responseJsonObject.addProperty("message", e.getMessage());
+        request.getServletContext().log(e.getMessage());
+        response.setStatus(500);
       }
-      response.setStatus(200);
-    } catch (Exception e) {
-      responseJsonObject.addProperty("status", "fail");
-      responseJsonObject.addProperty("message", e.getMessage());
-      request.getServletContext().log(e.getMessage());
-      response.setStatus(500);
+
+    }
+    else {
+      System.out.println("no condition");
     }
 
     response.getWriter().write(responseJsonObject.toString());

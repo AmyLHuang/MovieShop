@@ -1,0 +1,218 @@
+:root {
+    --bg-color: #e0ffff;
+    --cover-color: #7d2ae8;
+    --line-color: #5b13b9;
+    --btn-color: #8a2be2;
+    --btn-hover-color: #5b13b9;
+    --link-color: #5b13b9;
+    --eye-active-color: #32cd32;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    background-color: var(--bg-color);
+}
+
+/* -------------------------
+    Authentication Form
+ ------------------------- */
+
+#auth-container {
+    position: relative;
+    width: min(850px, 90%);
+    padding: 40px 30px;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+    align-self: center;
+    margin-top: 8%;
+    background-color: #fff;
+}
+
+/* Cover */
+
+#cover {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 50%;
+    z-index: 1;
+    transition: all 1s ease;
+    transform-origin: left;
+}
+
+#cover p {
+    position: absolute;
+    z-index: 2;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    font-size: 26px;
+    font-weight: 700;
+    color: #fff;
+}
+
+#cover p::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: var(--cover-color);
+    z-index: -1;
+}
+
+#slider {
+    display: none;
+}
+
+#slider:checked ~ #cover {
+    transform: translateX(100%);
+}
+
+#slider:checked ~ #login-form-container {
+    pointer-events: none;
+}
+
+/* Forms */
+
+#auth-forms {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+#auth-forms #login-form-container,
+#auth-forms #signup-form-container {
+    width: calc(100% / 2 - 25px);
+}
+
+#auth-forms header {
+    position: relative;
+    margin-bottom: 30px;
+    text-align: center;
+    font-size: 24px;
+    font-weight: 500;
+}
+
+#auth-forms header:before {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    height: 3px;
+    width: 25px;
+    background: var(--line-color);
+}
+
+/* Input  */
+
+.input-group {
+    margin: 15px 0;
+    position: relative;
+}
+
+.input-group label:not(.eye-icon) {
+    position: absolute;
+    top: 50%;
+    left: 15px;
+    padding: 0 5px;
+    font-size: 16px;
+    pointer-events: none;
+    transform: translateY(-50%);
+    transition: .5s;
+}
+
+.input-group input {
+    width: 100%;
+    height: 50px;
+    font-size: 16px;
+    padding: 0 15px;
+    border: 1px solid rgb(228, 232, 232);
+}
+
+.input-group input:focus ~ label:not(.eye-icon),
+.input-group input:valid ~ label:not(.eye-icon) {
+    top: 0;
+    background-color: #fff;
+    font-size: 14px;
+}
+
+input[type="password"],
+input[type="text"] {
+    padding-right: 35px;
+}
+
+.toggle-password {
+    cursor: pointer;
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    font-size: 20px;
+    color: #888;
+}
+
+.toggle-password.active {
+    color: var(--eye-active-color);
+}
+
+/* Button  */
+
+#auth-forms .button input {
+    margin-top: 10px;
+    color: #fff;
+    background: var(--btn-color);
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.4s ease;
+}
+
+#auth-forms .button input:hover {
+    background: var(--btn-hover-color);
+}
+
+/* Link */
+
+.link {
+    text-align: center;
+    margin-top: 25px;
+}
+
+.link label:not(.eye-icon) {
+    color: var(--link-color);
+    cursor: pointer;
+}
+
+.link label:not(.eye-icon):hover {
+    text-decoration: underline;
+}
+
+@media (max-width: 670px) {
+    #cover {
+        display: none;
+    }
+
+    #login-form-container,
+    #signup-form-container {
+        flex-grow: 1;
+    }
+
+    #signup-form-container {
+        display: none;
+    }
+
+    #slider:checked ~ #auth-forms #signup-form-container {
+        display: block;
+    }
+
+    #slider:checked ~ #auth-forms #login-form-container {
+        display: none;
+    }
+}

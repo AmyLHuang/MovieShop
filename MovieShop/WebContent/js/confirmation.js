@@ -11,12 +11,12 @@ function handleResult(resultData) {
             html += '<tr>';
             html += '    <td>' + resultData[i]["saleId"] + '</td>';
             html += '    <td><a href="movie.html?id=' + resultData[i]["movieId"] + '">' + resultData[i]["movieName"] + '</a></td>';
-            html += '    <td>$42</td>';
+            html += '    <td>$20</td>';
             html += "</tr>";
             sale_list.append(html);
         }
     }
-    let overallTotalRow = "<tr><td colspan='2'></td><td id='overall-total'>$" + resultData.length*42 + "</td></tr>";
+    let overallTotalRow = "<tr><td colspan='2'></td><td id='overall-total'>$" + resultData.length*20 + "</td></tr>";
     sale_list.append(overallTotalRow);
 }
 
