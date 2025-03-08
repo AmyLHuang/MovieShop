@@ -6,7 +6,7 @@ function handleResult(resultDataJson) {
     if (resultDataJson["status"] === "success") {
         window.location.replace("index.html");
     } else {
-        $("#login_error_msg").text(resultDataJson["message"]);
+        $("#login_error_msg").text("ERROR: " + resultDataJson["message"]);
     }
 }
 
@@ -18,7 +18,7 @@ function submitLoginForm(formSubmitEvent) {
         method: "POST",
         data: {
             action: "login",
-            username: $('#login_form input[name="username"]').val(),
+            username: $('#login_form input[name="email"]').val(),
             password: $('#login_form input[name="password"]').val()
         },
         success: (resultData) => handleResult(resultData),

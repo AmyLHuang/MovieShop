@@ -194,6 +194,13 @@ input[type="text"] {
     text-decoration: underline;
 }
 
+/* Error Message */
+.login_error_msg {
+    color: red;
+    text-align: center;
+    margin-top: 10px;
+}
+
 @media (max-width: 670px) {
     #cover {
         display: none;

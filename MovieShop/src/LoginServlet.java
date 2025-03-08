@@ -53,11 +53,11 @@ public class LoginServlet extends HttpServlet {
         } else if (option == 1) {
           request.getServletContext().log("Login failed: password did not match");
           responseJsonObject.addProperty("status", "fail");
-          responseJsonObject.addProperty("message", "Incorrect password");
+          responseJsonObject.addProperty("message", "Incorrect password.");
         } else if (option == 0) {
           request.getServletContext().log("Login failed: username does not exist");
           responseJsonObject.addProperty("status", "fail");
-          responseJsonObject.addProperty("message", "user " + username + " doesn't exist");
+          responseJsonObject.addProperty("message", "User " + username + " does not exist.");
         }
         response.setStatus(200);
       } catch (Exception e) {
