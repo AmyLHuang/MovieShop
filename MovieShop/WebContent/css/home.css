@@ -1,0 +1,183 @@
+:root {
+    --bg-color: #fff;
+    --nav-bar-color: #e0ffff;
+    --nav-bar-active-color: #004d4d;
+    --btn-color: #8a2be2;
+    --btn-hover-color: #5b13b9;
+    --label-color: #5b13b9;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    background-color: var(--bg-color);
+}
+
+h1 {
+    text-align: center;
+    margin: 10px 0;
+}
+
+h2 {
+    margin: 30px;
+    text-align: center;
+}
+
+/* -------------------------
+    Navigation Bar
+ ------------------------- */
+
+nav {
+    background-color: var(--nav-bar-color);
+}
+
+/* Links */
+
+nav a {
+    float: left;
+    padding: 18px;
+    font-size: 17px;
+    text-decoration: none;
+    color: black;
+}
+
+nav a:hover {
+    text-decoration: underline;
+}
+
+nav a.active {
+    background-color: var(--nav-bar-active-color);
+    color: #fff;
+}
+
+/* Search Bar */
+
+nav #search-bar {
+    float: right;
+}
+
+nav input[type=text] {
+    padding: 6px;
+    margin-top: 13px;
+    font-size: 17px;
+    border: none;
+}
+
+nav input[type=text]:focus {
+    outline: none;
+}
+
+nav #search-bar button {
+    float: right;
+    padding: 6px 10px;
+    margin-top: 13px;
+    margin-right: 16px;
+    font-size: 17px;
+    border: none;
+    cursor: pointer;
+}
+
+nav #search-bar button:hover {
+    background-color: #ccc;
+}
+
+/* ----------------
+    Boxes
+ ---------------- */
+
+.link-box {
+    position: relative;
+    width: 90%;
+    border: 2px solid #ccc;
+    margin: 20px 0;
+    align-self: center;
+
+}
+
+.box-label {
+    position: absolute;
+    top: -11px;
+    left: 10px;
+    background-color: var(--bg-color);
+    padding: 0 10px;
+    font-weight: bold;
+    font-size: 20px;
+    z-index: 1;
+    color: var(--label-color);
+}
+
+/* -------------------------
+    Browsing Containers
+ ------------------------- */
+
+.link-list {
+    display: flex;
+    margin: 0 15px;
+    list-style: none;
+    margin-top: 10px;
+    flex-wrap: wrap;
+}
+
+.link-list li {
+    margin: 10px 20px 10px 0;
+}
+
+.link-list a, .link-list a:visited {
+    text-decoration: none;
+    color: black;
+    font-size: 17px;
+}
+
+.link-list a:hover {
+    color: #007bff;
+}
+
+/* -----------------------------
+    Advanced Search Container
+ ----------------------------- */
+
+#advanced-search-container {
+    width: 90%;
+    align-self: center;
+}
+
+#adv-search-form {
+    margin: 15px;
+}
+
+.input-container {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 10px;
+}
+
+.input-container input {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.button-container {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.button-container button {
+    padding: 10px 20px;
+    background-color: var(--btn-color);
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.button-container button:hover {
+    background-color: var(--btn-hover-color);
+}

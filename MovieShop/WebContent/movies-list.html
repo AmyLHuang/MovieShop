@@ -8,17 +8,15 @@
     <title>MovieShop</title>
 </head>
 <body>
-    <nav class="topnav">
+    <nav>
         <a href="index.html">Home</a>
         <a href="top-rated-movies.html">Top 20</a>
         <a href="cart.html">Cart</a>
-        <div class="search-container">
-            <form action="movies-list.html">
-                <label><input type="text" placeholder="Search.." name="value"></label>
-                <button type="submit"><i class="fa fa-search"></i></button>
-                <input type="hidden" name="action" value="search">
-            </form>
-        </div>
+        <form id="search-bar" action="movies-list.html" method="get">
+            <input type="text" placeholder="Search" name="value">
+            <button type="submit"><i class="fa fa-search"></i></button>
+            <input type="hidden" name="action" value="search">
+        </form>
     </nav>
 
     <h1 id="pageTitle" class="pageTitle" style="text-align: center;"></h1>
