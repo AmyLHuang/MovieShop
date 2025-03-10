@@ -1,4 +1,3 @@
-<!-- Home Page -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -20,48 +19,19 @@
         </form>
     </nav>
 
-    
-
-
     <h1>Welcome to MovieShop!</h1>
 
-    <div class="link-box">
+    <div class="box-container">
         <span class="box-label">Browse By Genre</span>
-        <ul class="link-list">
-            <li><a href="#">Link 1</a></li>
-            <li><a href="#">Link 2</a></li>
-            <li><a href="#">Link 3</a></li>
-            <li><a href="#">Link 4</a></li>
-            <li><a href="#">Link 1</a></li>
-            <li><a href="#">Link 2</a></li>
-            <li><a href="#">Link 3</a></li>
-            <li><a href="#">Link 4</a></li>
-            <li><a href="#">Link 1</a></li>
-            <li><a href="#">Link 2</a></li>
-            <li><a href="#">Link 3</a></li>
-            <li><a href="#">Link 4</a></li>
-            <li><a href="#">Link 1</a></li>
-            <li><a href="#">Link 2</a></li>
-            <li><a href="#">Link 3</a></li>
-            <li><a href="#">Link 4</a></li>
-            <li><a href="#">Link 1</a></li>
-            <li><a href="#">Link 2</a></li>
-            <li><a href="#">Link 3</a></li>
-            <li><a href="#">Link 4</a></li>
-        </ul>
+        <ul id="genre-list" class="link-list"></ul>
     </div>
 
-    <div class="link-box">
+    <div class="box-container">
         <span class="box-label">Browse By Title</span>
-        <ul class="link-list">
-            <li><a href="#">Link 1</a></li>
-            <li><a href="#">Link 2</a></li>
-            <li><a href="#">Link 3</a></li>
-            <li><a href="#">Link 4</a></li>
-        </ul>
+        <ul id="title-list" class="link-list"></ul>
     </div>
 
-    <div class="link-box">
+    <div class="box-container">
         <span class="box-label">Advanced Search</span>
         <form id="adv-search-form" action="movies-list.html" method="get">
             <input type="hidden" name="action" value="advancedSearch">
@@ -87,43 +57,7 @@
         </form>
     </div>
 
-    <footer style="margin: 50px 0 20px 0; text-align: center; font-size: small;">
-        <p>Amy Huang</p>
-    </footer>
-
-    
-    <!--
-    <div style="display: grid; grid-template-columns: repeat(3, 1fr);">
-        <h2>Browse By Genre</h2>
-        <h2>Browse By Title</h2>
-        <h2>Advanced Search</h2>
-        <div><div id="genres-grid-container" class="grid-container"></div></div>
-        <div><div id="titles-grid-container" class="grid-container"></div></div>
-        <div id="search-inputs">
-            <form action="movies-list.html" method="get">
-                <input type="hidden" name="action" value="advancedSearch">
-                <div class="input-container">
-                    <label for="title">Title</label>
-                    <input type="text" id="title" name="title">
-                </div>
-                <div class="input-container">
-                    <label for="year">Year</label>
-                    <input type="text" id="year" name="year">
-                </div>
-                <div class="input-container">
-                    <label for="director">Director</label>
-                    <input type="text" id="director" name="director">
-                </div>
-                <div class="input-container">
-                    <label for="star">Star</label>
-                    <input type="text" id="star" name="star">
-                </div>
-                <div class="button-container">
-                    <button type="submit">Submit</button>
-                </div>
-            </form>
-        </div>
-    </div> -->
+    <footer style="margin: 50px 0 20px 0; text-align: center; font-size: small;"></footer>
 
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <script src="js/index.js"></script>

@@ -1,16 +1,10 @@
 :root {
-    --bg-color: white;
-    --line-color: #5b13b9;
-    --btn-color: #8a2be2;
-    --btn-hover-color: #5b13b9;
-    --link-color: #5b13b9;
-    --eye-active-color: #32cd32;
-
-    --purple-dark: #5b13b9;
-    --purple-light: #8a2be2;
-
+    --bg-color: #fff;
     --nav-bar-color: #e0ffff;
     --nav-bar-active-color: #004d4d;
+    --btn-color: #8a2be2;
+    --btn-hover-color: #5b13b9;
+    --label-color: #5b13b9;
 }
 
 * {
@@ -27,6 +21,12 @@ body {
 }
 
 h1 {
+    text-align: center;
+    margin: 10px 0;
+}
+
+h2 {
+    margin: 30px;
     text-align: center;
 }
 
@@ -88,31 +88,9 @@ nav #search-bar button:hover {
     background-color: #ccc;
 }
 
-/* @media screen and (max-width: 600px) {
-    nav .search-bar {
-        float: none;
-    }
-
-    nav a,
-    nav input[type=text],
-    nav .search-bar button {
-        float: none;
-        display: block;
-        text-align: left;
-        width: 100%;
-        margin: 0;
-        padding: 14px;
-    }
-
-    nav input[type=text] {
-        border: 1px solid #ccc;
-    }
-} */
 
 
-.center {
-    text-align: center;
-}
+
 
  
 .movies-container {

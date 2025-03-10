@@ -1,8 +1,8 @@
 :root {
-    --bg-color: #e0ffff;
-    --cover-color: #5b13b9;  /* #7d2ae8 */
+    --bg-color: #fff;
+    --cover-color: #000;
     --line-color: #5b13b9;
-    --btn-color: #8a2be2;
+    --btn-color: #000;
     --btn-hover-color: #5b13b9;
     --link-color: #5b13b9;
     --eye-active-color: #32cd32;

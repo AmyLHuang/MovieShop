@@ -92,13 +92,12 @@ nav #search-bar button:hover {
     Boxes
  ---------------- */
 
-.link-box {
+.box-container {
     position: relative;
     width: 90%;
     border: 2px solid #ccc;
     margin: 20px 0;
     align-self: center;
-
 }
 
 .box-label {
@@ -119,7 +118,6 @@ nav #search-bar button:hover {
 
 .link-list {
     display: flex;
-    margin: 0 15px;
     list-style: none;
     margin-top: 10px;
     flex-wrap: wrap;
