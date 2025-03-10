@@ -1,10 +1,10 @@
 :root {
     --bg-color: #fff;
     --cover-color: #000;
-    --line-color: #5b13b9;
+    --line-color: #6f00ff;
     --btn-color: #000;
-    --btn-hover-color: #5b13b9;
-    --link-color: #5b13b9;
+    --btn-hover-color: #6f00ff;
+    --link-color: #6f00ff;
     --eye-active-color: #32cd32;
 }
 

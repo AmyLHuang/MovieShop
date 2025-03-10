@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="css/styles.css">
     <link rel="stylesheet" href="css/home.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <title>MovieShop</title>
 </head>
 <body>
@@ -14,7 +14,7 @@
         <a href="cart.html">Cart</a>
         <form id="search-bar" action="movies-list.html" method="get">
             <input type="text" placeholder="Search" name="value">
-            <button type="submit"><i class="fa fa-search"></i></button>
+            <button type="submit">⌕</button>
             <input type="hidden" name="action" value="search">
         </form>
     </nav>
@@ -35,29 +35,29 @@
         <span class="box-label">Advanced Search</span>
         <form id="adv-search-form" action="movies-list.html" method="get">
             <input type="hidden" name="action" value="advancedSearch">
-            <div class="input-container">
-                <label for="title">Title</label>
-                <input type="text" id="title" name="title">
+            <div id="adv-search-input-container">
+                <div class="adv-search-input">
+                    <label for="title">Title</label>
+                    <input type="text" id="title" name="title">
+                </div>
+                <div class="adv-search-input">
+                    <label for="year">Year</label>
+                    <input type="text" id="year" name="year">
+                </div>
+                <div class="adv-search-input">
+                    <label for="director">Director</label>
+                    <input type="text" id="director" name="director">
+                </div>
+                <div class="adv-search-input">
+                    <label for="star">Star</label>
+                    <input type="text" id="star" name="star">
+                </div>
             </div>
-            <div class="input-container">
-                <label for="year">Year</label>
-                <input type="text" id="year" name="year">
-            </div>
-            <div class="input-container">
-                <label for="director">Director</label>
-                <input type="text" id="director" name="director">
-            </div>
-            <div class="input-container">
-                <label for="star">Star</label>
-                <input type="text" id="star" name="star">
-            </div>
-            <div class="button-container">
+            <div id="button-container">
                 <button type="submit">Submit</button>
             </div>
         </form>
     </div>
-
-    <footer style="margin: 50px 0 20px 0; text-align: center; font-size: small;"></footer>
 
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <script src="js/index.js"></script>
