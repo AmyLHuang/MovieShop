@@ -1,0 +1,112 @@
+.movies-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 20px;
+    margin: 20px 8%;
+}
+
+/* -------------------------
+    Movie Card
+ ------------------------- */
+
+.movie {
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    /*overflow: hidden;*/
+}
+
+.movie-header {
+    background-color: lavenderblush;
+    padding: 15px 20px;
+    border-bottom: 2px solid red;
+}
+
+.movie-title {
+    font-size: 1.2rem;
+}
+
+.movie-title a {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100%;
+}
+
+.movie-title a:hover {
+    white-space: normal;
+    overflow: visible;
+}
+
+.movie-content {
+    padding: 20px;
+}
+
+.movie-info {
+    margin-bottom: 10px;
+}
+
+.movie-info span {
+    font-weight: bold;
+}
+
+.movie-info a {
+    font-size: 1em;
+    font-weight: normal;
+}
+
+.add-to-cart-button form {
+    justify-self: center;
+}
+
+.add-to-cart-button input[type="submit"] {
+    /*width: fit-content;*/
+    color: #fff;
+    cursor: pointer;
+    border-radius: 5px;
+    background-color: #0000ffff;
+    border: none;
+    padding: 8px 16px;
+    text-align: center;
+    margin-top: 8px;
+}
+
+.add-to-cart-button input[type="submit"]:hover {
+    background-color: #6f00ff;
+}
+
+/* -------------------------
+    No Results
+ ------------------------- */
+
+#empty {
+    text-align: center;
+    margin: 15px;
+    font-weight: bold;
+}
+
+/* -------------------------
+    Number / Sort
+ ------------------------- */
+
+/* -------------------------
+    Change Page
+ ------------------------- */
+
+#change-page-container {
+    margin-bottom: 25px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+#prev-form,
+#next-form {
+    background-color: #e9e9e9;
+    cursor: pointer;
+}
+
+#prev-form:hover,
+#next-form:hover {
+    background-color: #ddd;
+}

@@ -1,5 +1,4 @@
 function handleResult(resultData) {
-    let movieContainerElement = jQuery(".movies-container");
     let html = "";
     for (let i = 0; i < resultData.length; i++) {
         html += '<div class="movie">'
@@ -7,7 +6,7 @@ function handleResult(resultData) {
         html += '       <h2 class="movie-title"><a href="movie.html?id=' + resultData[i]["movieId"] + '">' + resultData[i]["movieTitle"] + '</a></h2>'
         html += '   </div>'
         html += '   <div class="movie-content">'
-        html += '       <div class="info">'
+        html += '       <div class="movie-info">'
         html += '           <span>Year:</span> ' + resultData[i]["movieYear"] + '<br/>'
         html += '           <span>Director:</span> ' + resultData[i]["movieDirector"] + '<br/>'
         html += '           <span>Genres:</span>'
@@ -27,14 +26,21 @@ function handleResult(resultData) {
         html += '               <input name="action" type="hidden" id="add-cart" value="add">';
         html += '               <input name="movieId" type="hidden" value="' + resultData[i]["movieId"] + '">';
         html += '               <input name="movieTitle" type="hidden" value="' + resultData[i]["movieTitle"] + '">';
-        html += '               <input type="submit" class="add-to-cart-button-inner" value="Add to Cart">';
+        html += '               <input type="submit" value="Add to Cart">';
         html += '           </form>';
         html += '       </div>';
         html += '   </div>'
         html += '</div>'
     }
-    movieContainerElement.append(html);
+    jQuery(".movies-container").append(html);
 }
+
+jQuery.ajax({
+    dataType: "json",
+    method: "GET",
+    url: "api/top-rated-movies",
+    success: (resultData) => handleResult(resultData),
+});
 
 function handleCartArray(resultArray) {
     let item_list = $("#item_list");
@@ -61,16 +67,9 @@ $(document).on('submit', '.add-to-cart-button form', function(event) {
         success: resultDataString => {
             let resultDataJson = JSON.parse(resultDataString);
             handleCartArray(resultDataJson["previousItems"]);
-            window.alert("Successfully added " + mTitle);
+            window.alert("Successfully added " + mTitle +".");
         }
     });
-});
-
-jQuery.ajax({
-   dataType: "json",
-   method: "GET",
-   url: "api/top-rated-movies",
-   success: (resultData) => handleResult(resultData),
 });
 
 

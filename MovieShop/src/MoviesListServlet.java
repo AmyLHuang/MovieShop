@@ -90,7 +90,7 @@ public class MoviesListServlet extends HttpServlet {
             case "search":
                 session.setAttribute("action", action);
                 session.setAttribute("value", request.getParameter("value"));
-                session.setAttribute("limit", 10);
+                session.setAttribute("limit", 12);
                 session.setAttribute("order", viewOrdering.get("TascRdsc"));
                 session.setAttribute("offset", 0);
                 break;
@@ -101,7 +101,7 @@ public class MoviesListServlet extends HttpServlet {
                 session.setAttribute("year", request.getParameter("year"));
                 session.setAttribute("director", request.getParameter("director"));
                 session.setAttribute("star", request.getParameter("star"));
-                session.setAttribute("limit", 10);
+                session.setAttribute("limit", 12);
                 session.setAttribute("order", viewOrdering.get("TascRdsc"));
                 session.setAttribute("offset", 0);
                 break;

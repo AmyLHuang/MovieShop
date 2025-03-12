@@ -18,7 +18,7 @@ function handleResult(resultData) {
     let titleElement = jQuery(".title");
     titleElement.append(resultData[0]["starName"]);
 
-    let infoElement = jQuery("#info");
+    let infoElement = jQuery("#movie-info");
     let starBirthYear = resultData[0]["starDoB"] == null ? "N/A" : resultData[0]["starDoB"];
     let html = "<p>Year of Birth: " + starBirthYear + "</p>";
     infoElement.append(html);

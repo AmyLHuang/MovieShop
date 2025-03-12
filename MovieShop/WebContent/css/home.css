@@ -29,21 +29,18 @@
 .link-list {
     display: flex;
     flex-direction: row;
+    flex-wrap: wrap;
     list-style: none;
     margin-top: 10px;
-    flex-wrap: wrap;
+    padding: 8px 10px;
 }
 
 .link-list li {
-    margin: 10px 20px 10px 0;
+    margin: 2px 12px;
 }
 
-.link-list a, .link-list a:visited {
+.link-list a {
     font-size: 17px;
-}
-
-.link-list a:hover {
-    color: darkblue;
 }
 
 /* -----------------------------

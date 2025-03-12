@@ -10,36 +10,37 @@ function handleResult(resultDataJson) {
     }
 }
 
-/** Executes when Login Btn is Clicked */
+/**
+ * Handles the servlet call when the login button is clicked
+ */
 function submitLoginForm(formSubmitEvent) {
     formSubmitEvent.preventDefault();
     jQuery.ajax({
         url: "api/login",
         method: "POST",
-        data: {
-            action: "login",
-            username: $('#login_form input[name="email"]').val(),
-            password: $('#login_form input[name="password"]').val()
-        },
+        data: loginForm.serialize(),
         success: (resultData) => handleResult(resultData),
     });
 }
 
-/** Executes when Signup Btn is Clicked */
+/**
+ * Handles the servlet call when the signup button is clicked
+ */
 function submitSignupForm(formSubmitEvent) {
     formSubmitEvent.preventDefault();
     jQuery.ajax({
-        url: "api/login",
+        url: "api/signup",
         method: "POST",
-        data: {
-            action: "signup",
-
-        },
+        data: signupForm.serialize(),
         success: (resultData) => handleResult(resultData),
     });
 }
 
-/** Executes when Eye Icon for Password Input is Clicked */
+/**
+ * Handle the event in which the user toggles the eye icon on the password input field
+ * @param eyeIcon HTMLElement
+ * @param passwordInput HTMLElement
+ */
 function togglePasswordVisibility(eyeIcon, passwordInput) {
     eyeIcon.addEventListener('click', function() {
         if (passwordInput.type === "password") {
@@ -53,15 +54,19 @@ function togglePasswordVisibility(eyeIcon, passwordInput) {
 }
 
 // Login Btn Clicked
-$("#login_form").submit(submitLoginForm);
+let loginForm = $("#login_form");
+loginForm.submit(submitLoginForm);
 
 // Signup Btn Clicked
-// $("#signup_form").submit(submitSignupForm);
+let signupForm = $("#signup_form");
+signupForm.submit(submitSignupForm);
 
-// Toggle Password Visibility
+// EyeIcon for Login Clicked
 let eyeIconLogin = document.getElementById("toggle-login-password");
 let password = document.getElementById("password");
 togglePasswordVisibility(eyeIconLogin, password);
+
+// EyeIcon for Signup Clicked
 let eyeIconSignup = document.getElementById("toggle-signup-password");
 let newPassword = document.getElementById("new-password");
 togglePasswordVisibility(eyeIconSignup, newPassword);

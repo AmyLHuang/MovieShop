@@ -20,7 +20,7 @@ function handleResult(resultData) {
     let titleElement = jQuery(".title");
     titleElement.append(resultData["movieTitle"]);
 
-    let infoElement = jQuery("#info");
+    let infoElement = jQuery("#movie-info");
     html += "<p>" + resultData["movieYear"] + " ⋅ " + resultData["movieDirector"] + "</p>";
     html += "<p>Rating: " + resultData["movieRating"] + "</p>";
     infoElement.append(html);
@@ -32,7 +32,7 @@ function handleResult(resultData) {
     html += '               <input name="action" type="hidden" id="add-cart" value="add">';
     html += '               <input name="movieId" type="hidden" value="' + resultData["movieId"] + '">';
     html += '               <input name="movieTitle" type="hidden" value="' + resultData["movieTitle"] + '">';
-    html += '               <input type="submit" class="add-to-cart-button-inner" value="Add to Cart">';
+    html += '               <input type="submit" value="Add to Cart">';
     html += '           </form>';
     html += '       </div>';
     addToCartBtn.append(html);

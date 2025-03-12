@@ -30,76 +30,60 @@ public class LoginServlet extends HttpServlet {
   protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
     response.setContentType("application/json");
     HttpSession session = request.getSession();
+    String username = request.getParameter("username");
+    String password = request.getParameter("password");
+    System.out.println(username + password);
+
     JsonObject responseJsonObject = new JsonObject();
 
-    String action = request.getParameter("action");
-    System.out.println(action);
-
-    if (action.equals("login")) {
-      System.out.println("login condition");
-      String username = request.getParameter("username");
-      String password = request.getParameter("password");
-
-      try (Connection conn = dataSource.getConnection()) {
-        System.out.println("username: " + username + " password: " + password);
-        int option = userExists(username, password, conn);
-        System.out.println("option: " + option);
-        if (option == 2) {
-          request.getServletContext().log("Login successful");
-          request.getSession().setAttribute("user", username);
-          responseJsonObject.addProperty("status", "success");
-          responseJsonObject.addProperty("message", "success");
-          session.setAttribute("customerId", getCustomerId(username, conn));
-        } else if (option == 1) {
-          request.getServletContext().log("Login failed: password did not match");
-          responseJsonObject.addProperty("status", "fail");
-          responseJsonObject.addProperty("message", "Incorrect password.");
-        } else if (option == 0) {
-          request.getServletContext().log("Login failed: username does not exist");
-          responseJsonObject.addProperty("status", "fail");
-          responseJsonObject.addProperty("message", "User " + username + " does not exist.");
-        }
-        response.setStatus(200);
-      } catch (Exception e) {
+    try (Connection conn = dataSource.getConnection()) {
+      int option = isValidUser(username, password, conn);
+      if (option == 2) {
+        request.getServletContext().log("Login successful");
+        request.getSession().setAttribute("user", username);
+        responseJsonObject.addProperty("status", "success");
+        responseJsonObject.addProperty("message", "success");
+        session.setAttribute("customerId", getCustomerId(username, conn));
+      } else if (option == 1) {
+        request.getServletContext().log("Login failed: password did not match");
         responseJsonObject.addProperty("status", "fail");
-        responseJsonObject.addProperty("message", e.getMessage());
-        request.getServletContext().log(e.getMessage());
-        response.setStatus(500);
+        responseJsonObject.addProperty("message", "Incorrect password.");
+      } else if (option == 0) {
+        request.getServletContext().log("Login failed: username does not exist");
+        responseJsonObject.addProperty("status", "fail");
+        responseJsonObject.addProperty("message", "User " + username + " does not exist.");
       }
-
+      response.setStatus(200);
+    } catch (Exception e) {
+      responseJsonObject.addProperty("status", "fail");
+      responseJsonObject.addProperty("message", e.getMessage());
+      request.getServletContext().log(e.getMessage());
+      response.setStatus(500);
     }
-    else {
-      System.out.println("no condition");
-    }
-
     response.getWriter().write(responseJsonObject.toString());
   }
 
-  private int userExists(String username, String password, Connection conn) throws SQLException {
-    int isValidUsername = 0;
+  private int isValidUser(String username, String password, Connection conn) throws SQLException {
     String query = "SELECT email, password FROM customers WHERE email=?;";
-    try (PreparedStatement preparedStatement = conn.prepareStatement(query)) {
-      preparedStatement.setString(1, username);
-      try (ResultSet resultSet = preparedStatement.executeQuery()) {
-        if (resultSet.next()) {
-          isValidUsername = 1;
-          if (resultSet.getString("password").equals(password)) {
-            return 2;
-          }
-        }
+    PreparedStatement preparedStatement = conn.prepareStatement(query);
+    preparedStatement.setString(1, username);
+    ResultSet resultSet = preparedStatement.executeQuery();
+    int isValid = 0;
+    if (resultSet.next()) {
+      isValid = 1;
+      if (resultSet.getString("password").equals(password)) {
+        return 2;
       }
     }
-    return isValidUsername;
+    return isValid;
   }
 
   private int getCustomerId(String username, Connection conn) throws SQLException {
     String query = "SELECT id FROM customers WHERE email=?;";
-    try (PreparedStatement preparedStatement = conn.prepareStatement(query)) {
-      preparedStatement.setString(1, username);
-      try (ResultSet resultSet = preparedStatement.executeQuery()) {
-        resultSet.next();
-        return Integer.parseInt(resultSet.getString("id"));
-      }
-    }
+    PreparedStatement preparedStatement = conn.prepareStatement(query);
+    preparedStatement.setString(1, username);
+    ResultSet resultSet = preparedStatement.executeQuery();
+    resultSet.next();
+    return Integer.parseInt(resultSet.getString("id"));
   }
 }

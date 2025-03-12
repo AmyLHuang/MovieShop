@@ -1,8 +1,11 @@
 :root {
-    --bg-color: #fff;
-    --nav-bar-color: #fff;
-    --nav-bar-active-color: #6f00ff;
+    --bg-color: #f5f5f5;
+    --nav-color: #000;
+    --nav-link-color: #fff;
+    --nav-link-hover-color: #ff009b;
     --label-color: #6f00ff;
+    --link-color: #000;
+    --link-hover-color: #ff009b;
     --btn-color: #000;
     --btn-hover-color: #6f00ff;
 }
@@ -22,13 +25,19 @@ body {
 
 h1 {
     text-align: center;
-    margin: 0.6rem 0;
+    margin: 1rem 0;
+    font-family: cursive;
 }
 
-a,
-a:visited {
+a, a:visited {
     text-decoration: none;
-    color: black;
+    color: var(--link-color);
+    font-size: 14pt;
+    font-weight: bold;
+}
+
+a:hover {
+    color: var(--link-hover-color);
 }
 
 /* -------------------------
@@ -36,29 +45,29 @@ a:visited {
  ------------------------- */
 
 nav {
-    background-color: var(--nav-bar-color);
+    background-color: var(--nav-color);
     display: flex;
     flex-direction: row;
-    border-bottom: 1px dotted #000;
     padding: 0.7rem 1.2rem;
     align-items: center;
-    margin-bottom: 1rem;
+    box-shadow: 0 17px 13px rgba(0, 0, 0, 0.2);
 }
 
 /* Links */
 
-nav a {
-    padding-right: 2rem;
+nav a, nav a:visited {
+    padding: 0 1rem;
     font-weight: bold;
+    color: var(--nav-link-color);
 }
 
 nav a:hover {
-    color: var(--nav-bar-active-color);
+    color: var(--nav-link-hover-color);
 }
 
 nav a.active {
-    color: var(--nav-bar-active-color);
     text-decoration: underline;
+    color: var(--nav-link-hover-color);
 }
 
 /* Search Bar */
