@@ -1,48 +1,27 @@
-function getParameterByName(target) {
-    let url = window.location.href;
-    // Encode target parameter name to url encoding
-    target = target.replace(/[\[\]]/g, "\\$&");
-
-    // Ues regular expression to find matched parameter value
-    let regex = new RegExp("[?&]" + target + "(=([^&#]*)|&|#|$)"),
-        results = regex.exec(url);
-    if (!results) return null;
-    if (!results[2]) return '';
-
-    // Return the decoded parameter value
-    return decodeURIComponent(results[2].replace(/\+/g, " "));
-}
+import { getParameterByName, initAddToCartSubmit } from "./utils.js";
 
 function handleResult(resultData) {
-    jQuery("#pageTitle").append(resultData[resultData.length-1]["value"]);
-    jQuery("#limitSelect").val(resultData[resultData.length-1]['limit']);
-    jQuery("#orderSelect").val(resultData[resultData.length-1]['order']);
+    let metadata = resultData[resultData.length-1];
+    console.log("metadata: " + JSON.stringify(metadata));
 
+    $("#pageTitle").append(metadata["value"]);
+    // document.querySelector('input[name="title"][value="desc"]').checked = true;
+
+    //  Insert Movie Cards based on the result data
+    $(".movies-container").append(parseDataIntoHtml(resultData));
+
+    // If no results, then display a message
     if (resultData.length === 1) {
         let msg = resultData[0]['offset'] === 0 ? "No Results" : "No More Results!";
-        jQuery("#empty").append(msg);
+        $("#empty").text(msg);
+    } else {
+        $("#empty").text("");
     }
 
-    jQuery(".movies-container").append(parseDataIntoHtml(resultData));
-
-    // Next button, Page number, Prev button,
-    let changePageContainerElement = jQuery("#change-page-container");
-    let componentHTML = '<form id="prev-form" action="#" method="get"><input type="hidden" name="action" id="qu-input" value="prev">';
-    if (resultData[resultData.length-1]["offset"] > 0) {
-        componentHTML += '<input type="submit" value="< Prev"></form>';
-    } else {
-        componentHTML += '<input type="submit" value="< Prev" disabled></form>';
-    }
-    changePageContainerElement.append(componentHTML);
-    componentHTML = '<p> Page ' + (resultData[resultData.length-1]["offset"]/resultData[resultData.length-1]["limit"]+1) + '</\p>';
-    changePageContainerElement.append(componentHTML);
-    componentHTML = '<form id="next-form" action="#" method="get"><input type="hidden" name="action" value="next">';
-    if (resultData[resultData.length-1]["limit"] === resultData[resultData.length-1]["numResults"]) {
-        componentHTML += '<input type="submit" value="Next >"></form>';
-    } else {
-        componentHTML += '<input type="submit" value="Next >" disabled></form>';
-    }
-    changePageContainerElement.append(componentHTML);
+    // Change Page Features
+    document.getElementById('prev-page-btn').disabled = metadata["offset"] === 0;
+    document.getElementById('next-page-btn').disabled = metadata["limit"] > metadata["numResults"];
+    $("#page-num").text(Math.floor(metadata["offset"] / metadata["limit"]) + 1);
 }
 
 function parseDataIntoHtml(resultData) {
@@ -73,7 +52,7 @@ function parseDataIntoHtml(resultData) {
         html += '               <input name="action" type="hidden" id="add-cart" value="add">';
         html += '               <input name="movieId" type="hidden" value="' + resultData[i]["movieId"] + '">';
         html += '               <input name="movieTitle" type="hidden" value="' + resultData[i]["movieTitle"] + '">';
-        html += '               <input type="submit" value="Add to Cart">';
+        html += '               <button id="add-btn" type="submit">Add to Cart</button>';
         html += '           </form>';
         html += '       </div>';
         html += '   </div>';
@@ -82,46 +61,44 @@ function parseDataIntoHtml(resultData) {
     return html;
 }
 
-function handleCartArray(resultArray) {
-    let item_list = $("#item_list");
-    let res = "<ul>";
-    for (let i = 0; i < resultArray.length; i++) {
-        res += "<li>" + resultArray[i] + "</li>";
-    }
-    res += "</ul>";
+function changePageForm(button) {
+    const form = document.createElement('form');
+    form.method = 'GET';
+    form.action = 'movies-list.html';
 
-    // clear the old array and show the new array in the frontend
-    item_list.html("");
-    item_list.append(res);
+    const input = document.createElement('input');
+    input.type = 'hidden';
+    input.name = 'action';
+    input.value = button.getAttribute('data-action');
+    form.appendChild(input);
+
+    document.body.appendChild(form);
+    form.submit();
+    document.body.removeChild(form);
 }
 
-$(document).on('submit', '.add-to-cart-button form', function(event) {
-    event.preventDefault();
-    const formData = $(this).serialize();
-    const params = new URLSearchParams(formData);
-    const mTitle = params.get('movieTitle');
-    jQuery.ajax({
-        method: 'POST',
-        url: 'api/cart',
-        data: formData,
-        success: resultDataString => {
-            let resultDataJson = JSON.parse(resultDataString);
-            handleCartArray(resultDataJson["previousItems"]);
-            window.alert("Successfully added " + mTitle);
-        }
-    });
+// Enable Adding to Cart Feature
+$(document).ready(function() {
+    initAddToCartSubmit();
 });
 
-$(document).on('click', '#prev-form input[type="submit"]', function (event) {
-    event.preventDefault();
-    window.location.href = "movies-list.html?action=prev";
+// Filter/Sort Feature
+const isChecked = document.getElementById('order').checked;
+document.getElementById('sortForm').addEventListener('submit', function(event) {
+    const isOrderReversedInput = document.getElementById('isOrderReversed');
+    isOrderReversedInput.value = isChecked ? 'false' : 'true';
 });
 
-$(document).on('click', '#next-form input[type="submit"]', function (event) {
-    event.preventDefault();
-    window.location.href = "movies-list.html?action=next";
+// Change Page Feature
+$('#prev-page-btn').click(function() {
+    changePageForm(this);
 });
 
+$('#next-page-btn').click(function() {
+    changePageForm(this);
+});
+
+// Call the appropriate Java Servlet
 let action = getParameterByName('action');
 if (action === "browseGenre" || action === "browseTitle" || action === "search") {
     jQuery.ajax({
@@ -132,7 +109,9 @@ if (action === "browseGenre" || action === "browseTitle" || action === "search")
             action: getParameterByName('action'),
             value: getParameterByName('value'),
             limit: getParameterByName('limit'),
-            order: getParameterByName('order'),
+            isOrderReversed: getParameterByName('isOrderReversed'),
+            titleOrder: getParameterByName('title'),
+            ratingOrder: getParameterByName('rating'),
         },
         success: (resultData) => handleResult(resultData)
     });
@@ -148,7 +127,9 @@ if (action === "browseGenre" || action === "browseTitle" || action === "search")
             director: getParameterByName('director'),
             star: getParameterByName('star'),
             limit: getParameterByName('limit'),
-            order: getParameterByName('order'),
+            isOrderReversed: document.getElementById('order').checked,
+            titleOrder: getParameterByName('title'),
+            ratingOrder: getParameterByName('rating'),
         },
         success: (resultData) => handleResult(resultData)
     });

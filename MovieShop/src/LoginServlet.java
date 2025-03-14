@@ -32,7 +32,6 @@ public class LoginServlet extends HttpServlet {
     HttpSession session = request.getSession();
     String username = request.getParameter("username");
     String password = request.getParameter("password");
-    System.out.println(username + password);
 
     JsonObject responseJsonObject = new JsonObject();
 

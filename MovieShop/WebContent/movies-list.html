@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="css/styles.css">
     <link rel="stylesheet" href="css/movies.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <title>MovieShop</title>
 </head>
 <body>
@@ -18,38 +19,52 @@
             <input type="hidden" name="action" value="search">
         </form>
     </nav>
-
     <h1 id="pageTitle" class="pageTitle" style="text-align: center;"></h1>
-    <div style="text-align: center">
-        <form action="#" method="GET" id="view-edit-form">
-            <label for="limitSelect">Display</label>
-            <select id="limitSelect" name="limit">
-                <option value="12">12</option>
-                <option value="25">25</option>
-                <option value="50">50</option>
-                <option value="100">100</option>
-            </select>
-
-            <label for="orderSelect"> Movies, Sort By </label>
-            <select id="orderSelect" name="order">
-                <option value="TascRdsc">Title ASC, Rating DESC</option>
-                <option value="TascRasc">Title ASC, Rating ASC</option>
-                <option value="TdscRdsc">Title DESC, Rating DESC</option>
-                <option value="TdscRasc">Title DESC, Rating ASC</option>
-                <option value="RascTdsc">Rating ASC, Title DESC</option>
-                <option value="RascTasc">Rating ASC, Title ASC</option>
-                <option value="RdscTdsc">Rating DESC, Title DESC</option>
-                <option value="RdscTasc">Rating DESC, Title ASC</option>
-            </select>
-            <input type="hidden" name="action" value="view">
-            <input type="submit" value="Edit View">
-        </form>
+    <div class="dropdown-container">
+        <button class="dropdown-button"><i class="fa fa-sliders"></i></button>
+        <div class="dropdown-content">
+            <form action="#" method="GET" id="sortForm">
+                <p class="dropdown-title">Num of Movies Per Page</p>
+                <div class="dropdown-item">
+                    <span># Displayed</span>
+                    <select name="limit" id="limitSelect">
+                        <option value="10">10</option>
+                        <option value="25">25</option>
+                        <option value="50">50</option>
+                        <option value="100">100</option>
+                    </select>
+                </div>
+                <p class="dropdown-title">Sort Order</p>
+                <div class="dropdown-item">
+                    <span>Title</span>
+                    <label><input type="radio" name="title" value="asc" checked> ASC</label>
+                    <label><input type="radio" name="title" value="desc"> DESC</label>
+                </div>
+                <div class="dropdown-item">
+                    <span>Rating</span>
+                    <label><input type="radio" name="rating" value="asc"> ASC</label>
+                    <label><input type="radio" name="rating" value="desc" checked> DESC</label>
+                </div>
+                <div class="dropdown-item">
+                    <input type="checkbox" id="order" name="order" value="order">
+                    <label for="order">Sort by Rating First</label><br>
+                </div>
+                <input type="hidden" name="action" value="view">
+                <input type="hidden" name="isOrderReversed" id="isOrderReversed" value="true">
+                <button type="submit" class="apply-button">Apply</button>
+            </form>
+        </div>
     </div>
-    <div id="empty"></div>
     <div class="movies-container"></div>
-    <div id="change-page-container"></div>
+    <div id="empty"></div>
+    <div id="change-page-container">
+        <button id="prev-page-btn" data-action="prev">&lt;</button>
+        <p id="page-num"></p>
+        <button id="next-page-btn" data-action="next">&gt;</button>
+    </div>
 
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-    <script src="js/movies-list.js"></script>
+    <script type="module" src="js/utils.js"></script>
+    <script type="module" src="js/movies-list.js"></script>
 </body>
 </html>
