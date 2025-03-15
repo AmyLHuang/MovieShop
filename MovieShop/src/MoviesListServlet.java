@@ -143,9 +143,8 @@ public class MoviesListServlet extends HttpServlet {
 
         String whereClause;
         if ("browseGenre".equals(action)) {
-            whereClause = "WHERE m.id IN ( SELECT m.id FROM movies m LEFT JOIN genres_in_movies gim ON m.id = gim.movieId "
-                    +
-                    "LEFT JOIN genres g ON gim.genreId = g.id WHERE g.name = ? ) ";
+            whereClause = "WHERE m.id IN (SELECT m.id FROM movies m LEFT JOIN genres_in_movies gim ON m.id = gim.movieId " +
+                "LEFT JOIN genres g ON gim.genreId = g.id WHERE g.name = ? ) ";
             try (PreparedStatement preparedStatement = conn.prepareStatement(getQuery(whereClause, order))) {
                 preparedStatement.setString(1, (String) session.getAttribute("value"));
                 preparedStatement.setInt(2, (int) session.getAttribute("limit"));

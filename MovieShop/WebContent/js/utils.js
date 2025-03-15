@@ -11,13 +11,13 @@ export function getParameterByName(target) {
 
 // Function to handle cart array and display it
 function handleCartArray(resultArray) {
-    let item_list = $("#item_list");
+    let itemList = $("#item-list");
     let res = "<ul>";
     for (let i = 0; i < resultArray.length; i++)
         res += "<li>" + resultArray[i] + "</li>";
     res += "</ul>";
-    item_list.html("");
-    item_list.append(res);
+    itemList.html("");
+    itemList.append(res);
 }
 
 // Submit handler for the 'add-to-cart' button
@@ -30,7 +30,7 @@ export function initAddToCartSubmit() {
         const mTitle = params.get('movieTitle'); // Get movie title from form
 
         // AJAX call to submit data
-        jQuery.ajax({
+        $.ajax({
             method: 'POST',
             url: 'api/cart', // Assuming 'api/cart' is your server endpoint
             data: formData,

@@ -38,13 +38,15 @@ function parseDataIntoHtml(resultData) {
         html += '           <span>Genres:</span>';
         let genresArray = resultData[i]["movieGenres"].split(",");
         for (let j = 0; j < genresArray.length; j += 2) {
-            html += '       <span class="genres"><a href="movies-list.html?action=browseGenre&value=' + genresArray[j + 1] + '">' + genresArray[j + 1] + '</a></span>';
+            html += '       <span class="genres"><a href="movies-list.html?action=browseGenre&value=' + genresArray[j + 1] + '">' + genresArray[j + 1] + '</a></span>, ';
         }
+        html = html.slice(0, -2);
         html += '           <br/><span>Stars:</span>';
         let starsArray = resultData[i]["movieStars"].split(",");
         for (let j = 0; j < starsArray.length; j += 2) {
-            html += '       <span class="stars"><a href="star.html?id=' + starsArray[j] + '">' + starsArray[j + 1] + '</a></span>';
+            html += '       <span class="stars"><a href="star.html?id=' + starsArray[j] + '">' + starsArray[j + 1] + '</a></span>, ';
         }
+        html = html.slice(0, -2);
         html += '           <br/><span class="rating">Rating:</span> ' + resultData[i]["movieRating"];
         html += '       </div>';
         html += '       <div class="add-to-cart-button" data-movie-id="' + resultData[i]["movieId"] + '">';
@@ -98,9 +100,6 @@ const sortMap = {
 
 // Function to update the form based on the sort parameter from the URL
 function updateFormFromUrlParams(limit, order) {
-
-    console.log("updateForm: " + limit + " " + order);
-
     if (limit) {
         document.getElementById('limitSelect').value = limit;
     }
@@ -108,7 +107,6 @@ function updateFormFromUrlParams(limit, order) {
     // Get the 'sort' parameter and decode it
     if (order && sortMap[order]) {
         const [title, rating, sortOrder] = sortMap[order].split('-');
-        console.log("urlParam??? " + title + " " + rating + " " + sortOrder);
 
         // Set the title radio button
         const titleRadio = document.querySelector(`input[name="title"][value="${title}"]`);
@@ -162,9 +160,6 @@ document.getElementById('sortForm').addEventListener('submit', function(event) {
     window.location.href = newUrl.toString();
 });
 
-// Call the function to update the form when the page loads
-// window.onload = updateFormFromUrlParams;
-
 // Change Page Feature
 $('#prev-page-btn').click(function() {
     changePageForm(this);
@@ -177,7 +172,7 @@ $('#next-page-btn').click(function() {
 // Call the appropriate Java Servlet
 let action = getParameterByName('action');
 if (action === "browseGenre" || action === "browseTitle" || action === "search") {
-    jQuery.ajax({
+    $.ajax({
         dataType: "json",
         method: "GET",
         url: "api/movies-list",
@@ -190,7 +185,7 @@ if (action === "browseGenre" || action === "browseTitle" || action === "search")
         success: (resultData) => handleResult(resultData)
     });
 } else {
-    jQuery.ajax({
+    $.ajax({
         dataType: "json",
         method: "GET",
         url: "api/movies-list",

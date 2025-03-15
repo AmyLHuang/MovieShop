@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/checkout.css">
     <title>Cart</title>
 </head>
 <body>
@@ -18,22 +19,21 @@
         </form>
     </nav>
 
-    <button class="button" onclick="window.history.back()">Go Back</button>
+    <button class="return-btn" onclick="window.history.back()">Go Back</button>
     <h1 class="title">Cart</h1>
 
-    <table id="cart_table" class="table">
+    <table id="cart-table">
         <thead>
-        <tr>
-            <th>Title</th>
-            <th>Quantity</th>
-            <th>Removal</th>
-            <th>Unit Price</th>
-            <th>Total</th>
-        </tr>
+            <tr>
+                <th>Title</th>
+                <th>Quantity</th>
+                <th>Price</th>
+                <th>Removal</th>
+            </tr>
         </thead>
-        <tbody id=cart_table_body></tbody>
+        <tbody id=cart-table-body></tbody>
     </table>
-    <div id="checkout_btn"></div>
+    <button class='checkout-btn'>Proceed to Payment</button>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="js/cart.js"></script>

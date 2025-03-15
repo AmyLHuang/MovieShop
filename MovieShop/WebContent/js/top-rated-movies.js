@@ -28,25 +28,23 @@ function handleResult(resultData) {
         html += '               <input name="action" type="hidden" id="add-cart" value="add">';
         html += '               <input name="movieId" type="hidden" value="' + resultData[i]["movieId"] + '">';
         html += '               <input name="movieTitle" type="hidden" value="' + resultData[i]["movieTitle"] + '">';
-        html += '               <input type="submit" value="Add to Cart">';
+        html += '               <button id="add-btn" type="submit">Add to Cart</button>';
         html += '           </form>';
         html += '       </div>';
         html += '   </div>'
         html += '</div>'
     }
-    jQuery(".movies-container").append(html);
+    $(".movies-container").append(html);
 }
-
-jQuery.ajax({
-    dataType: "json",
-    method: "GET",
-    url: "api/top-rated-movies",
-    success: (resultData) => handleResult(resultData),
-});
 
 // Enable Adding to Cart Feature
 $(document).ready(function() {
     initAddToCartSubmit();
 });
 
-
+$.ajax({
+    dataType: "json",
+    method: "GET",
+    url: "api/top-rated-movies",
+    success: (resultData) => handleResult(resultData),
+});

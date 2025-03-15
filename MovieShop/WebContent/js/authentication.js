@@ -6,7 +6,7 @@ function handleResult(resultDataJson) {
     if (resultDataJson["status"] === "success") {
         window.location.replace("index.html");
     } else {
-        $("#login_error_msg").text("ERROR: " + resultDataJson["message"]);
+        $("#login-error-msg").text("ERROR: " + resultDataJson["message"]);
     }
 }
 
@@ -15,7 +15,7 @@ function handleResult(resultDataJson) {
  */
 function submitLoginForm(formSubmitEvent) {
     formSubmitEvent.preventDefault();
-    jQuery.ajax({
+    $.ajax({
         url: "api/login",
         method: "POST",
         data: loginForm.serialize(),
@@ -28,7 +28,7 @@ function submitLoginForm(formSubmitEvent) {
  */
 function submitSignupForm(formSubmitEvent) {
     formSubmitEvent.preventDefault();
-    jQuery.ajax({
+    $.ajax({
         url: "api/signup",
         method: "POST",
         data: signupForm.serialize(),
@@ -54,11 +54,11 @@ function togglePasswordVisibility(eyeIcon, passwordInput) {
 }
 
 // Login Btn Clicked
-let loginForm = $("#login_form");
+let loginForm = $("#login-form");
 loginForm.submit(submitLoginForm);
 
 // Signup Btn Clicked
-let signupForm = $("#signup_form");
+let signupForm = $("#signup-form");
 signupForm.submit(submitSignupForm);
 
 // EyeIcon for Login Clicked

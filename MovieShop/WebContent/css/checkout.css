@@ -1,151 +1,73 @@
 
-
-
-
-
-
-
-
-
-
-
-.title {
+/* -------------------------
+    Cart
+ ------------------------- */
+#cart-table td {
     text-align: center;
-    margin-top: 0;
-    margin-bottom: 0;
-    color: navy;
 }
 
-table {
-    font-family: arial, sans-serif;
-    border-collapse: collapse;
-    margin: 10px auto 30px;
-    width: 80%;
-    font-size: 12pt;
-}
-
-table a {
-    color: blue;
-}
-
-table a:hover {
-    color: mediumblue;
-}
-
-td,
-th {
-    border: 1px solid #dddddd;
-    text-align: left;
-    padding: 10px;
-}
-
-tr:nth-child(even) {
-    background-color: lavenderblush;
-}
-
-.button {
-    width: fit-content;
-    margin: 20px 0 0 30px;
-    padding: 4px 14px;
+.quantity-btn {
     background-color: var(--btn-color);
     color: white;
+    padding: 0 3px;
+    border: none;
     cursor: pointer;
-    border-radius: 5px;
+}
+
+.quantity-btn:hover {
+    background-color: var(--btn-hover-color);
 }
 
 
-
-.input_form {
-    margin: 2% auto;
-    padding: 2%;
-    background-color: #f0f0f0;
-    border-radius: 8px;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
-    width: 350px;
-    display: flex;
-    align-items: center;
-    flex-direction: column;
+.quantity-display {
+    margin: auto 5px;
 }
 
-.input_form h2 {
-    /*text-align: center;*/
-    color: #333;
-    margin-top: 0;
-    margin-bottom: 1%;
-    padding: 3%;
+.overall-total {
+    text-align: center;
 }
 
-.input_form label,
-.input_form div,
-.input_form p {
-    width: 90%;
-}
-
-.input_form label {
-    margin-bottom: 10px;
-}
-
-.input_form input[type="text"],
-.input_form input[type="password"] {
-    width: 100%;
-    padding: 2%;
-    margin: 2% 0;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-}
-
-.input_form input[type="submit"] {
-    width: 90%;
-    background-color: rgba(0, 51, 189, 0.98);
+.delete-btn {
+    padding: 2px 6px;
+    border-radius: 25px;
+    font-size: 16px;
+    background-color: rgb(236, 0, 0, 0.6);
     color: white;
-    margin-top: 5%;
-    padding: 3%;
-    border-radius: 8px;
+    border: none;
     cursor: pointer;
-    transition: background-color 0.3s ease;
 }
 
-.input_form input[type="submit"]:hover {
-    background-color: #012bbb;
+.delete-btn:hover {
+    background-color: red;
 }
 
-
-/* -------------------------
-    Checkout
- ------------------------- */
-
-.checkout-button {
+.checkout-btn {
     width: fit-content;
     color: white;
     cursor: pointer;
     border-radius: 5px;
-    background-color: blue;
+    background-color: var(--btn-color);
     border: none;
     padding: 8px 16px;
-    text-align: center;
-    text-decoration: none;
-    font-size: 14px;
-    margin-bottom: 10px;
+    align-self: center;
 }
 
-#checkout_btn {
+#checkout-btn {
     text-align: right;
     padding-right: 10%;
 }
 
-.checkout-button:disabled {
+.checkout-btn:disabled {
     background-color: #e9e9e9;
     color: darkgray;
     cursor: initial;
 }
 
-
-
 /* ------------------
     Payment
  ------------------ */
 
-#payment_form {
+#payment-form {
     max-width: 22%;
     margin: 5% auto;
     padding: 2%;
@@ -154,7 +76,7 @@ tr:nth-child(even) {
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
 }
 
-#payment_form input[type="text"] {
+#payment-form input[type="text"] {
     width: 100%;
     padding: 2%;
     margin: 2% 0;
@@ -162,7 +84,7 @@ tr:nth-child(even) {
     border-radius: 8px;
 }
 
-#payment_form input[type="submit"] {
+#payment-form input[type="submit"] {
     width: 100%;
     background-color: rgba(0, 51, 189, 0.98);
     color: white;
@@ -173,11 +95,11 @@ tr:nth-child(even) {
     transition: background-color 0.3s ease;
 }
 
-#payment_form input[type="submit"]:hover {
+#payment-form input[type="submit"]:hover {
     background-color: #012bbb;
 }
 
-#payment_error_msg {
+#payment-error-msg {
     color: red;
     text-align: center;
 }

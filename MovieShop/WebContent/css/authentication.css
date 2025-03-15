@@ -178,6 +178,12 @@ input[type="text"] {
     background: var(--btn-hover-color);
 }
 
+#auth-forms .button input:disabled {
+    background-color: #999;
+    cursor: not-allowed;
+    opacity: 0.6;
+}
+
 /* Link */
 
 .link {
@@ -195,7 +201,7 @@ input[type="text"] {
 }
 
 /* Error Message */
-.login_error_msg {
+.login-error-msg {
     color: red;
     text-align: center;
     margin-top: 10px;

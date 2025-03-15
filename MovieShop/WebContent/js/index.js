@@ -4,7 +4,7 @@ function handleResult(resultData) {
         html += '<li><a href="movies-list.html?action=browseGenre&value=' + resultData[i]["gName"] + '">' +
             resultData[i]["gName"] + '</a></li>';
     }
-    jQuery("#genre-list").append(html);
+    $("#genre-list").append(html);
 
     html = ""
     const titles = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R',
@@ -12,10 +12,10 @@ function handleResult(resultData) {
     for (let i = 0; i < titles.length; i++) {
         html += '<li><a href="movies-list.html?action=browseTitle&value=' + titles[i] + '">' + titles[i] + '</a>'
     }
-    jQuery("#title-list").append(html);
+    $("#title-list").append(html);
 }
 
-jQuery.ajax({
+$.ajax({
     dataType: "json",
     method: "GET",
     url: "api/genres",

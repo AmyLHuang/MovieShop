@@ -3,15 +3,15 @@ import { getParameterByName, initAddToCartSubmit } from "./utils.js";
 function handleResult(resultData) {
     let html = "";
 
-    let titleElement = jQuery(".title");
+    let titleElement = $(".title");
     titleElement.append(resultData["movieTitle"]);
 
-    let infoElement = jQuery("#movie-info");
+    let infoElement = $("#movie-info");
     html += "<p>" + resultData["movieYear"] + " ⋅ " + resultData["movieDirector"] + "</p>";
     html += "<p>Rating: " + resultData["movieRating"] + "</p>";
     infoElement.append(html);
 
-    let addToCartBtn = jQuery("#addToCartBtn");
+    let addToCartBtn = $("#addToCartBtn");
     html = '';
     html += '       <div class="add-to-cart-button" data-movie-id="' + resultData["movieId"] + '">';
     html += '           <form method="post">';
@@ -24,7 +24,7 @@ function handleResult(resultData) {
     addToCartBtn.append(html);
 
     html = ""
-    let genresTableElement = jQuery("#genresTable");
+    let genresTableElement = $("#genresTable");
     let genresArray = resultData["movieGenres"].split(",");
     for (let i = 0; i < genresArray.length; i++) {
         html += '<tr><td><a href="movies-list.html?action=browseGenre&value=' + genresArray[i] + '">' + genresArray[i] + '</a></td></tr>';
@@ -32,7 +32,7 @@ function handleResult(resultData) {
     genresTableElement.append(html);
 
     html = "";
-    let starsTableElement = jQuery("#starsTable");
+    let starsTableElement = $("#starsTable");
     let starsArray = resultData["movieStars"].split(",");
     for (let i = 0; i < starsArray.length; i += 2) {
         html += "<tr><td><a href='star.html?id=" + starsArray[i] + "'>" + starsArray[i+1] + "</a></td></tr>";
@@ -40,7 +40,7 @@ function handleResult(resultData) {
     starsTableElement.append(html);
 }
 
-jQuery.ajax({
+$.ajax({
     dataType: "json",
     method: "GET",
     url: "api/movie",

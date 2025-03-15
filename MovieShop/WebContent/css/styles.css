@@ -3,8 +3,8 @@
     --nav-color: #000;
     --nav-link-color: #fff;
     --nav-link-hover-color: #ff009b;
-    --label-color: #6f00ff;
-    --link-color: #000;
+    --label-color: #000;
+    --link-color: #6f00ff;
     --link-hover-color: #ff009b;
     --btn-color: #000;
     --btn-hover-color: #6f00ff;
@@ -25,7 +25,7 @@ body {
 
 h1 {
     text-align: center;
-    margin-top: 2rem;
+    /*margin-top: 2rem;*/
     font-family: cursive;
 }
 
@@ -58,6 +58,7 @@ nav {
     padding: 0.7rem 1.2rem;
     align-items: center;
     box-shadow: 0 17px 13px rgba(0, 0, 0, 0.2);
+    margin-bottom: 2rem;
 }
 
 /* Links */
@@ -110,3 +111,71 @@ nav #search-bar button:hover {
         width: 100px;
     }
 }
+
+/* -------------------------
+    Buttons
+ ------------------------- */
+.add-to-cart-button {
+    justify-self: center;
+    margin-top: 10px;
+}
+
+.add-to-cart-button #add-btn {
+    color: #fff;
+    cursor: pointer;
+    border-radius: 5px;
+    background-color: #0000ffff;
+    border: none;
+    padding: 8px 16px;
+    text-align: center;
+}
+
+.add-to-cart-button #add-btn:hover {
+    background-color: #6f00ff;
+}
+
+.return-btn {
+    background-color: var(--btn-color);
+    color: white;
+    width: fit-content;
+    padding: 5px 10px;
+    margin-left: 2rem;
+    cursor: pointer;
+    border-radius: 6px;
+}
+
+.return-btn:hover {
+    background-color: var(--btn-hover-color);
+}
+
+/* -------------------------
+    Tables
+ ------------------------- */
+table {
+    border-collapse: collapse;
+    width: 80%;
+    align-self: center;
+    margin: 2rem;
+}
+
+th, td {
+    border: 1px solid #dddddd;
+    padding: 8px;
+}
+
+th {
+    background-color: rgb(111, 0, 255, .2);
+    text-align: center;
+    font-weight: bold;
+}
+
+td a {
+    font-weight: normal;
+    font-size: 1rem;
+    margin: 0 12px;
+}
+
+tbody tr:nth-child(even) {
+    background-color: #dddddd;
+}
+

@@ -132,11 +132,13 @@ label[for="sortOrder"] {
     overflow: hidden;
     text-overflow: ellipsis;
     max-width: 100%;
+    color: black;
 }
 
 .movie-title a:hover {
     white-space: normal;
     overflow: visible;
+    color: var(--link-hover-color);
 }
 
 .movie-content {
@@ -155,25 +157,6 @@ label[for="sortOrder"] {
 .movie-info a {
     font-size: 1em;
     font-weight: normal;
-}
-
-.add-to-cart-button {
-    justify-self: center;
-    margin-top: 10px;
-}
-
-.add-to-cart-button #add-btn {
-    color: #fff;
-    cursor: pointer;
-    border-radius: 5px;
-    background-color: #0000ffff;
-    border: none;
-    padding: 8px 16px;
-    text-align: center;
-}
-
-.add-to-cart-button #add-btn:hover {
-    background-color: #6f00ff;
 }
 
 /* -------------------------

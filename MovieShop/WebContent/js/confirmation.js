@@ -3,7 +3,7 @@
  * @param resultData jsonObject, needs to be parsed to html
  */
 function handleResult(resultData) {
-    let sale_list = $("#sale_table_body");
+    let saleList = $("#sale-table-body");
 
     for (let i = 0; i < resultData.length; i++) {
         if (resultData[i]["status"] === "success") {
@@ -13,14 +13,14 @@ function handleResult(resultData) {
             html += '    <td><a href="movie.html?id=' + resultData[i]["movieId"] + '">' + resultData[i]["movieName"] + '</a></td>';
             html += '    <td>$20</td>';
             html += "</tr>";
-            sale_list.append(html);
+            saleList.append(html);
         }
     }
     let overallTotalRow = "<tr><td colspan='2'></td><td id='overall-total'>$" + resultData.length*20 + "</td></tr>";
-    sale_list.append(overallTotalRow);
+    saleList.append(overallTotalRow);
 }
 
-jQuery.ajax({
+$.ajax({
     dataType: "json",
     method: "POST",
     url: "api/confirmation",

@@ -8,21 +8,22 @@
     <title>MovieShop</title>
 </head>
 <body>
-    <nav>
-        <a href="index.html">Home</a>
-        <a class="active" href="top-rated-movies.html">Top 20</a>
-        <a href="cart.html">Cart</a>
-        <form id="search-bar" action="movies-list.html" method="get">
-            <input type="text" placeholder="Search" name="value">
-            <button type="submit">⌕</button>
-            <input type="hidden" name="action" value="search">
-        </form>
-    </nav>
+<nav>
+    <a href="index.html">Home</a>
+    <a class="active" href="top-rated-movies.html">Top 20</a>
+    <a href="cart.html">Cart</a>
+    <form id="search-bar" action="movies-list.html" method="get">
+        <input type="text" placeholder="Search" name="value">
+        <button type="submit">⌕</button>
+        <input type="hidden" name="action" value="search">
+    </form>
+</nav>
 
     <h1>Top 20 Movies</h1>
     <div class="movies-container"></div>
 
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-    <script src="js/top-rated-movies.js"></script>
+    <script type="module" src="js/utils.js"></script>
+    <script type="module" src="js/top-rated-movies.js"></script>
 </body>
 </html>

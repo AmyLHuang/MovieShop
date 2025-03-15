@@ -30,12 +30,11 @@ public class StarServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         response.setContentType("application/json");
         PrintWriter writer = response.getWriter();
-        String id = request.getParameter("id");
 
         try (Connection conn = dataSource.getConnection()) {
             JsonArray jsonArray = new JsonArray();
             PreparedStatement statement = conn.prepareStatement(getQuery());
-            statement.setString(1, id);
+            statement.setString(1, request.getParameter("id"));
 
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
@@ -70,7 +69,7 @@ public class StarServlet extends HttpServlet {
             "LEFT JOIN stars_in_movies sim ON s.id = sim.starId " +
             "LEFT JOIN movies m ON sim.movieId = m.id " +
             "WHERE s.id = ? " +
-            "ORDER BY year DESC, title ASC ;";
+            "ORDER BY year DESC, title ASC;";
     }
 }
 
