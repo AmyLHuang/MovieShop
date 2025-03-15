@@ -1,18 +1,4 @@
-function getParameterByName(target) {
-    // Get request URL
-    let url = window.location.href;
-    // Encode target parameter name to url encoding
-    target = target.replace(/[\[\]]/g, "\\$&");
-
-    // Ues regular expression to find matched parameter value
-    let regex = new RegExp("[?&]" + target + "(=([^&#]*)|&|#|$)"),
-        results = regex.exec(url);
-    if (!results) return null;
-    if (!results[2]) return '';
-
-    // Return the decoded parameter value
-    return decodeURIComponent(results[2].replace(/\+/g, " "));
-}
+import { getParameterByName, initAddToCartSubmit } from "./utils.js";
 
 function handleResult(resultData) {
     let html = "";
@@ -54,36 +40,6 @@ function handleResult(resultData) {
     starsTableElement.append(html);
 }
 
-function handleCartArray(resultArray) {
-    let item_list = $("#item_list");
-    let res = "<ul>";
-    for (let i = 0; i < resultArray.length; i++) {
-        res += "<li>" + resultArray[i] + "</li>";
-    }
-    res += "</ul>";
-
-    // clear the old array and show the new array in the frontend
-    item_list.html("");
-    item_list.append(res);
-}
-
-$(document).on('submit', '.add-to-cart-button form', function(event) {
-    event.preventDefault();
-    const formData = $(this).serialize();
-    const params = new URLSearchParams(formData);
-    const mTitle = params.get('movieTitle');
-    jQuery.ajax({
-        method: 'POST',
-        url: 'api/cart',
-        data: formData,
-        success: resultDataString => {
-            let resultDataJson = JSON.parse(resultDataString);
-            handleCartArray(resultDataJson["previousItems"]);
-            window.alert("Successfully added " + mTitle);
-        }
-    });
-});
-
 jQuery.ajax({
     dataType: "json",
     method: "GET",
@@ -92,4 +48,9 @@ jQuery.ajax({
         id: getParameterByName('id'),
     },
     success: (resultData) => handleResult(resultData),
+});
+
+// Enable Adding to Cart Feature
+$(document).ready(function() {
+    initAddToCartSubmit();
 });

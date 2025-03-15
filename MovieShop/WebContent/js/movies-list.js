@@ -4,8 +4,8 @@ function handleResult(resultData) {
     let metadata = resultData[resultData.length-1];
     console.log("metadata: " + JSON.stringify(metadata));
 
+    updateFormFromUrlParams(metadata["limit"], metadata["order"]);
     $("#pageTitle").append(metadata["value"]);
-    // document.querySelector('input[name="title"][value="desc"]').checked = true;
 
     //  Insert Movie Cards based on the result data
     $(".movies-container").append(parseDataIntoHtml(resultData));
@@ -18,7 +18,7 @@ function handleResult(resultData) {
         $("#empty").text("");
     }
 
-    // Change Page Features
+    // Change Page Functions
     document.getElementById('prev-page-btn').disabled = metadata["offset"] === 0;
     document.getElementById('next-page-btn').disabled = metadata["limit"] > metadata["numResults"];
     $("#page-num").text(Math.floor(metadata["offset"] / metadata["limit"]) + 1);
@@ -77,17 +77,93 @@ function changePageForm(button) {
     document.body.removeChild(form);
 }
 
+
 // Enable Adding to Cart Feature
 $(document).ready(function() {
     initAddToCartSubmit();
 });
 
 // Filter/Sort Feature
-const isChecked = document.getElementById('order').checked;
+
+const sortMap = {
+    1: 'asc-desc-',
+    2: 'asc-asc-',
+    3: 'desc-desc-',
+    4: 'desc-asc-',
+    5: 'desc-asc-order',
+    6: 'asc-asc-order',
+    7: 'desc-desc-order',
+    8: 'asc-desc-order',
+};
+
+// Function to update the form based on the sort parameter from the URL
+function updateFormFromUrlParams(limit, order) {
+
+    console.log("updateForm: " + limit + " " + order);
+
+    if (limit) {
+        document.getElementById('limitSelect').value = limit;
+    }
+
+    // Get the 'sort' parameter and decode it
+    if (order && sortMap[order]) {
+        const [title, rating, sortOrder] = sortMap[order].split('-');
+        console.log("urlParam??? " + title + " " + rating + " " + sortOrder);
+
+        // Set the title radio button
+        const titleRadio = document.querySelector(`input[name="title"][value="${title}"]`);
+        if (titleRadio) {
+            titleRadio.checked = true;
+        }
+
+        // Set the rating radio button
+        const ratingRadio = document.querySelector(`input[name="rating"][value="${rating}"]`);
+        if (ratingRadio) {
+            ratingRadio.checked = true;
+        }
+
+        // Set the order checkbox
+        const orderCheckbox = document.getElementById('sortOrder');
+        if (sortOrder && sortOrder === 'order') {
+            orderCheckbox.checked = true;
+        }
+    }
+}
+
+// Handle form submission to redirect with the new parameters
 document.getElementById('sortForm').addEventListener('submit', function(event) {
-    const isOrderReversedInput = document.getElementById('isOrderReversed');
-    isOrderReversedInput.value = isChecked ? 'false' : 'true';
+    event.preventDefault(); // Prevent default form submission
+
+    // Get the form values
+    const limit = document.getElementById('limitSelect').value;
+    const title = document.querySelector('input[name="title"]:checked').value;
+    const rating = document.querySelector('input[name="rating"]:checked').value;
+    const order = document.getElementById('sortOrder').checked ? 'order' : ''; // Use 'order' if checked
+
+    // Find the corresponding sort map value
+    const sortParam = Object.keys(sortMap).find(key => sortMap[key] === `${title}-${rating}-${order}`);
+
+    // Construct the new URL with the combined parameter
+    const pathSegments = window.location.pathname.split('/');
+    let basePath = '';
+    for (let i = 0; i < pathSegments.length; i++) {
+        basePath += pathSegments[i];
+        if (pathSegments[i] === 'movies-list.html') {
+            break;
+        }
+        basePath += '/';
+    }
+    const newUrl = new URL(window.location.origin + basePath);
+    newUrl.searchParams.append('action', 'view');
+    newUrl.searchParams.append('limit', limit);
+    newUrl.searchParams.append('order', sortParam);
+
+    // Redirect to the new URL
+    window.location.href = newUrl.toString();
 });
+
+// Call the function to update the form when the page loads
+// window.onload = updateFormFromUrlParams;
 
 // Change Page Feature
 $('#prev-page-btn').click(function() {
@@ -109,9 +185,7 @@ if (action === "browseGenre" || action === "browseTitle" || action === "search")
             action: getParameterByName('action'),
             value: getParameterByName('value'),
             limit: getParameterByName('limit'),
-            isOrderReversed: getParameterByName('isOrderReversed'),
-            titleOrder: getParameterByName('title'),
-            ratingOrder: getParameterByName('rating'),
+            order: getParameterByName('order'),
         },
         success: (resultData) => handleResult(resultData)
     });
@@ -127,9 +201,7 @@ if (action === "browseGenre" || action === "browseTitle" || action === "search")
             director: getParameterByName('director'),
             star: getParameterByName('star'),
             limit: getParameterByName('limit'),
-            isOrderReversed: document.getElementById('order').checked,
-            titleOrder: getParameterByName('title'),
-            ratingOrder: getParameterByName('rating'),
+            order: getParameterByName('order'),
         },
         success: (resultData) => handleResult(resultData)
     });

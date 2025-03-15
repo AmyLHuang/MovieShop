@@ -28,13 +28,13 @@ public class MoviesListServlet extends HttpServlet {
         }
     }
 
+
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         response.setContentType("application/json");
         HttpSession session = request.getSession(false);
         PrintWriter writer = response.getWriter();
 
-        var sortOrder = getSortOrder(request);
-        setSessionAttributes(request, session, request.getParameter("action"), sortOrder);
+        setSessionAttributes(request, session);
         String action = (String) session.getAttribute("action");
 
         try (Connection connection = dataSource.getConnection()) {
@@ -47,6 +47,7 @@ public class MoviesListServlet extends HttpServlet {
             jsonObject.addProperty("limit", (int) session.getAttribute("limit"));
             jsonObject.addProperty("offset", (int) session.getAttribute("offset"));
             jsonObject.addProperty("numResults", (int) session.getAttribute("numResults"));
+            jsonObject.addProperty("order", (int) session.getAttribute("order"));
             results.add(jsonObject);
 
             writer.write(results.toString());
@@ -62,18 +63,31 @@ public class MoviesListServlet extends HttpServlet {
         }
     }
 
-    private static String getSortOrder(HttpServletRequest request) {
-        String titleSort = request.getParameter("title");
-        String ratingSort = request.getParameter("rating");
-        String isReversedOrder = request.getParameter("isOrderReversed");
-        if (isReversedOrder == null || isReversedOrder.equals("false")) {
-            return " mTitle " + titleSort + ", mRating " + ratingSort;
-        } else {
-            return " mRating " + ratingSort + ", mTitle " + titleSort;
+    private static String getQueryOrder(int orderCode) {
+        switch (orderCode) {
+            case 1:
+                return "mTitle ASC, mRating DESC";
+            case 2:
+                return "mTitle ASC, mRating ASC";
+            case 3:
+                return "mTitle DESC, mRating DESC";
+            case 4:
+                return "mTitle DESC, mRating ASC";
+            case 5:
+                return "mRating ASC, mTitle DESC";
+            case 6:
+                return "mRating ASC, mTitle ASC";
+            case 7:
+                return "mRating DESC, mTitle DESC";
+            case 8:
+                return "mRating DESC, mTitle ASC";
+            default:
+                return null;
         }
     }
 
-    private static void setSessionAttributes(HttpServletRequest request, HttpSession session, String action, String sortOrder) {
+    private static void setSessionAttributes(HttpServletRequest request, HttpSession session) {
+        String action = request.getParameter("action");
         switch (action) {
             case "browseGenre":
             case "browseTitle":
@@ -81,7 +95,7 @@ public class MoviesListServlet extends HttpServlet {
                 session.setAttribute("action", action);
                 session.setAttribute("value", request.getParameter("value"));
                 session.setAttribute("limit", 10);
-                session.setAttribute("order", "mTitle ASC, mRating DESC");
+                session.setAttribute("order", 1);
                 session.setAttribute("offset", 0);
                 break;
             case "advancedSearch":
@@ -92,13 +106,14 @@ public class MoviesListServlet extends HttpServlet {
                 session.setAttribute("director", request.getParameter("director"));
                 session.setAttribute("star", request.getParameter("star"));
                 session.setAttribute("limit", 10);
-                session.setAttribute("order", "mTitle ASC, mRating DESC");
+                session.setAttribute("order", 1);
                 session.setAttribute("offset", 0);
                 break;
             case "view": {
                 int limit = Integer.parseInt(request.getParameter("limit"));
                 session.setAttribute("limit", limit);
-                session.setAttribute("order", sortOrder);
+                int orderCode = Integer.parseInt(request.getParameter("order"));
+                session.setAttribute("order", orderCode);
                 session.setAttribute("offset", 0);
                 break;
             }
@@ -124,7 +139,8 @@ public class MoviesListServlet extends HttpServlet {
 
     private JsonArray getJsonElements(HttpSession session, Connection conn, String action) throws SQLException {
         JsonArray jsonArray = null;
-        String order = (String) session.getAttribute("order");
+        String order = getQueryOrder((int) session.getAttribute("order"));
+
         String whereClause;
         if ("browseGenre".equals(action)) {
             whereClause = "WHERE m.id IN ( SELECT m.id FROM movies m LEFT JOIN genres_in_movies gim ON m.id = gim.movieId "
@@ -193,7 +209,6 @@ public class MoviesListServlet extends HttpServlet {
     }
 
     private String getQuery(String whereClause, String order) {
-        System.out.println("order in getQuery: " + order);
         return "SELECT m.id AS mId, m.title AS mTitle, m.year AS mYear, m.director AS mDirector, r.rating AS mRating, "
                 +
                 "   SUBSTRING_INDEX(GROUP_CONCAT(DISTINCT CONCAT(g.id, ',', g.name) ORDER BY g.name ASC), ',', 6) AS mGenres, "

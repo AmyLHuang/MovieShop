@@ -1,3 +1,5 @@
+import { initAddToCartSubmit} from "./utils.js";
+
 function handleResult(resultData) {
     let html = "";
     for (let i = 0; i < resultData.length; i++) {
@@ -42,34 +44,9 @@ jQuery.ajax({
     success: (resultData) => handleResult(resultData),
 });
 
-function handleCartArray(resultArray) {
-    let item_list = $("#item_list");
-    let res = "<ul>";
-    for (let i = 0; i < resultArray.length; i++) {
-        res += "<li>" + resultArray[i] + "</li>";
-    }
-    res += "</ul>";
-
-    // clear the old array and show the new array in the frontend
-    item_list.html("");
-    item_list.append(res);
-}
-
-$(document).on('submit', '.add-to-cart-button form', function(event) {
-    event.preventDefault();
-    const formData = $(this).serialize();
-    const params = new URLSearchParams(formData);
-    const mTitle = params.get('movieTitle');
-    jQuery.ajax({
-        method: 'POST',
-        url: 'api/cart',
-        data: formData,
-        success: resultDataString => {
-            let resultDataJson = JSON.parse(resultDataString);
-            handleCartArray(resultDataJson["previousItems"]);
-            window.alert("Successfully added " + mTitle +".");
-        }
-    });
+// Enable Adding to Cart Feature
+$(document).ready(function() {
+    initAddToCartSubmit();
 });
 
 
