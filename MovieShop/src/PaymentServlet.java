@@ -46,7 +46,7 @@ public class PaymentServlet extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         response.setContentType("application/json");
-        String id = request.getParameter("id");
+        String id = request.getParameter("card-id");
         String firstname = request.getParameter("first-name");
         String lastname = request.getParameter("last-name");
         Date expirationDate = Date.valueOf(request.getParameter("expiration-date"));
@@ -61,7 +61,7 @@ public class PaymentServlet extends HttpServlet {
             } else {
                 request.getServletContext().log("Payment failed: incorrect credit card information");
                 responseJsonObject.addProperty("status", "fail");
-                responseJsonObject.addProperty("message", "incorrect credit card information");
+                responseJsonObject.addProperty("message", "ERROR: Invalid credit card");
             }
             response.setStatus(200);
         } catch (Exception e) {

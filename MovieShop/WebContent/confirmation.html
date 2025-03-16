@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/checkout.css">
     <title>Confirmation</title>
 </head>
 <body>
@@ -18,15 +19,15 @@
         </form>
     </nav>
 
-    <button class="button" onclick="window.location.replace('index.html');">Back to Home</button>
+    <button class="return-btn" onclick="window.location.replace('index.html');">Back to Home</button>
 
-    <h1 class="title" style="margin-top: 35px;margin-bottom: 18px;">Confirmation</h1>
+    <h1 class="title">Confirmation</h1>
+    <p id="total-price"></p>
     <table id="sale-table" class="table">
         <thead>
         <tr>
             <th>Sale id</th>
             <th>Title</th>
-            <th>Price</th>
         </tr>
         </thead>
         <tbody id=sale-table-body></tbody>

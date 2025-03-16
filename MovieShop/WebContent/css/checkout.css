@@ -2,7 +2,8 @@
 /* -------------------------
     Cart
  ------------------------- */
-#cart-table td {
+#cart-table td,
+#sale-table td {
     text-align: center;
 }
 
@@ -28,10 +29,10 @@
 }
 
 .delete-btn {
-    padding: 2px 6px;
+    padding: 0 6px;
     border-radius: 25px;
-    font-size: 16px;
-    background-color: rgb(236, 0, 0, 0.6);
+    font-size: 20px;
+    background-color: rgb(236, 0, 0, 0.5);
     color: white;
     border: none;
     cursor: pointer;
@@ -52,54 +53,76 @@
     align-self: center;
 }
 
-#checkout-btn {
-    text-align: right;
-    padding-right: 10%;
+.checkout-btn:hover {
+    background-color: var(--btn-hover-color);
 }
 
 .checkout-btn:disabled {
-    background-color: #e9e9e9;
-    color: darkgray;
-    cursor: initial;
+    background-color: #999999;
+    cursor: not-allowed;
+    opacity: 0.6;
 }
 
 /* ------------------
     Payment
  ------------------ */
 
-#payment-form {
-    max-width: 22%;
-    margin: 5% auto;
-    padding: 2%;
+.payment-form {
+    display: flex;
+    flex-direction: column;
+    width: 25rem;
+    padding: 1.5rem;
+    align-self: center;
     background-color: white;
     border-radius: 8px;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
 }
 
-#payment-form input[type="text"] {
-    width: 100%;
-    padding: 2%;
-    margin: 2% 0;
+.payment-form input {
+    padding: 0.5rem;
+    margin: 7px 0;
     border: 1px solid #ccc;
-    border-radius: 8px;
 }
 
-#payment-form input[type="submit"] {
-    width: 100%;
-    background-color: rgba(0, 51, 189, 0.98);
+.payment-btn {
+    background-color: var(--btn-color);
     color: white;
-    margin-top: 5%;
-    padding: 3%;
+    margin-top: 0.3rem;
+    padding:0.4rem;
     border-radius: 8px;
     cursor: pointer;
     transition: background-color 0.3s ease;
 }
 
-#payment-form input[type="submit"]:hover {
-    background-color: #012bbb;
+.payment-btn:hover {
+    background-color: var(--btn-hover-color);
 }
 
-#payment-error-msg {
+#totalPrice {
+    margin: 10px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.error-msg {
     color: red;
     text-align: center;
+    margin-top: 10px;
+}
+
+.decrease-quantity:disabled {
+    background-color: #999999;
+    cursor: initial;
+    opacity: 0.6;
+}
+
+.decrease-quantity:disabled:hover {
+    background-color: #999999;
+    opacity: 0.6;
+}
+
+#total-price {
+    margin: 10px;
+    text-align: center;
+    font-weight: bold;
 }

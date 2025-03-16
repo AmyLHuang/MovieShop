@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/checkout.css">
     <title>Payment</title>
 </head>
 <body>
@@ -18,27 +19,23 @@
         </form>
     </nav>
 
-    <button class="button" onclick="window.location.replace('cart.html');">Back to Cart</button>
-
+    <button class="return-btn" onclick="window.location.replace('cart.html');">Back to Cart</button>
     <h1 class="title">Check Out</h1>
-    <form id="payment_form" method="post" action="#">
-        <div id="totalPrice" style="margin-bottom: 10px;text-align: center;font-weight: bold;"></div>
-        <label>Credit Card ID *</label>
-        <label><input name="id" placeholder="Enter Credit Card Id" type="text" required></label>
-        <br>
-        <label>First Name *</label>
-        <label><input name="first-name" placeholder="Enter First Name" type="text" required></label>
-        <br>
-        <label>Last Name *</label>
-        <label><input name="last-name" placeholder="Enter Last Name" type="text" required></label>
-        <br>
-        <label>Expiration Date *</label><br>
-        <label><input name="expiration-date" placeholder="Enter Expiration Date" type="date" required></label>
-        <br>
-        <input type="submit" value="Place Order" style="margin-top: 20px;">
-        <p style="margin-top: 8px;margin-bottom: 0;font-size: 11px;">* - indicates field is required</p>
+    <div id="totalPrice"></div>
+
+    <form class="payment-form" method="post">
+        <label for="card-id">Credit Card ID *</label>
+        <input id="card-id" name="card-id" type="text" required>
+        <label for="first-name">First Name *</label>
+        <input id="first-name" name="first-name" type="text" required>
+        <label for="last-name">Last Name *</label>
+        <input id="last-name" name="last-name" type="text" required>
+        <label for="expiration-date">Expiration Date *</label>
+        <input id="expiration-date" name="expiration-date" type="date" required>
+        <button type="submit" class="payment-btn">Place Order</button>
+        <p style="margin-top: 8px;font-size:small;">* = field is required</p>
     </form>
-    <div id="payment_error_msg"></div>
+    <div class="error-msg"></div>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="js/payment.js"></script>

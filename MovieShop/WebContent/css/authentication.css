@@ -201,7 +201,7 @@ input[type="text"] {
 }
 
 /* Error Message */
-.login-error-msg {
+.error-msg {
     color: red;
     text-align: center;
     margin-top: 10px;

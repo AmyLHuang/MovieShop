@@ -13,7 +13,7 @@ function handleResult(resultItems, resultTitles, resultCounts) {
         html += '<tr>';
         html += '    <td><a href="movie.html?id=' + resultItems[i] + '">' + resultTitles[i] + '</a></td>';
         html += '    <td>'
-        html += '        <button class="quantity-btn decrease-quantity">&minus;</button>';
+        html += '        <button id="decrease-quantity" class="quantity-btn decrease-quantity">&minus;</button>';
         html += '        <span class="quantity-display" data-movie-id=' + resultItems[i] + '>' + resultCounts[i] + '</span>';
         html += '        <button class="quantity-btn increase-quantity">&plus;</button>';
         html += '    </td>';
@@ -27,13 +27,12 @@ function handleResult(resultItems, resultTitles, resultCounts) {
     if (overallTotalPrice > 0) {
         let overallTotalRow = '<tr><td colspan="5" id="overall-total">Total Price: $' + overallTotalPrice + '</td></tr>';
         cartTableBodyElement.append(overallTotalRow);
-        $(".checkout-btn").disabled = false;
+        $(".checkout-btn").prop("disabled", false);
     }
     else {
-        console.log("empty???");
         let overallTotalRow = "<tr><td colspan='5' id='overall-total'>Cart is Empty.</td></tr>";
         cartTableBodyElement.append(overallTotalRow);
-        $(".checkout-btn").disabled = true;
+        $(".checkout-btn").prop("disabled", true);
     }
 }
 
@@ -55,15 +54,11 @@ $(document).on('click', '.quantity-btn', function () {
     if ($(this).hasClass('decrease-quantity')) {
         if (currentAmount > 1) {
             currentAmount--;
-        } else if (currentAmount === 1) {
-            $(".decrease-quantity").disabled = true;
         }
     } else if ($(this).hasClass('increase-quantity')) {
-        if (currentAmount === 1) {
-            $(".decrease-quantity").disabled = false;
-        }
         currentAmount++;
     }
+
     $.ajax({
         method: 'GET',
         url: 'api/cart',
@@ -72,9 +67,9 @@ $(document).on('click', '.quantity-btn', function () {
             movieId : movieId,
             action: "modifyAmount"
         },
-        success: (resultDatas) => {
-            let resultData = JSON.parse(resultDatas);
-            handleResult(resultData["previousItems"], resultData["previousTitles"], resultData["previousCounts"]);
+        success: (resultData) => {
+            let parsedResultData = JSON.parse(resultData);
+            handleResult(parsedResultData["previousItems"], parsedResultData["previousTitles"], parsedResultData["previousCounts"]);
         }
     });
 });
@@ -88,9 +83,9 @@ $(document).on('click', '.delete-btn', function () {
             movieId : movieId,
             action: "deleteMovie"
         },
-        success: (resultDatas) => {
-            let resultData = JSON.parse(resultDatas);
-            handleResult(resultData["previousItems"], resultData["previousTitles"], resultData["previousCounts"]);
+        success: (resultData) => {
+            let parsedResultData = JSON.parse(resultData);
+            handleResult(parsedResultData["previousItems"], parsedResultData["previousTitles"], parsedResultData["previousCounts"]);
         }
     });
 });

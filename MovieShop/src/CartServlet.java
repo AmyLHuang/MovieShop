@@ -41,7 +41,6 @@ public class CartServlet extends HttpServlet {
             }
         }
 
-
         JsonArray previousItemsJsonArray = new JsonArray();
         previousItems.forEach(previousItemsJsonArray::add);
         responseJsonObject.add("previousItems", previousItemsJsonArray);

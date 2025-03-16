@@ -6,7 +6,7 @@ function handleResult(resultDataJson) {
     if (resultDataJson["status"] === "success") {
         window.location.replace("index.html");
     } else {
-        $("#login-error-msg").text("ERROR: " + resultDataJson["message"]);
+        $(".error-msg").text("ERROR: " + resultDataJson["message"]);
     }
 }
 

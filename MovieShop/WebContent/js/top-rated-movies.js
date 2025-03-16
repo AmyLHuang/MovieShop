@@ -14,13 +14,15 @@ function handleResult(resultData) {
         html += '           <span>Genres:</span>'
         let genresArray = resultData[i]["movieGenres"].split(",");
         for (let j = 0; j < genresArray.length; j += 2) {
-            html += '       <span class="genres"><a href="movies-list.html?action=browseGenre&value=' + genresArray[j+1] + '">' + genresArray[j+1] + '</a></span>'
+            html += '       <span class="genres"><a href="movies-list.html?action=browseGenre&value=' + genresArray[j+1] + '">' + genresArray[j+1] + '</a></span>, '
         }
+        html = html.slice(0, -2);
         html += '           <br/><span>Stars:</span>'
         let starsArray = resultData[i]["movieStars"].split(",");
         for (let j = 0; j < starsArray.length; j += 2) {
-            html += '       <span class="stars"><a href="star.html?id=' + starsArray[j] + '">' + starsArray[j+1] + '</a></span>'
+            html += '       <span class="stars"><a href="star.html?id=' + starsArray[j] + '">' + starsArray[j+1] + '</a></span>, '
         }
+        html = html.slice(0, -2);
         html += '           <br/><span class="rating">Rating:</span> ' + resultData[i]["movieRating"]
         html += '       </div>'
         html += '       <div class="add-to-cart-button" data-movie-id="' + resultData[i]["movieId"] + '">';

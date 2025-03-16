@@ -239,7 +239,11 @@ public class MoviesListServlet extends HttpServlet {
             jsonObject.addProperty("movieTitle", resultSet.getString("mTitle"));
             jsonObject.addProperty("movieYear", resultSet.getString("mYear"));
             jsonObject.addProperty("movieDirector", resultSet.getString("mDirector"));
-            jsonObject.addProperty("movieRating", resultSet.getString("mRating"));
+            if (resultSet.getString("mRating") == null) {
+                jsonObject.addProperty("movieRating", "N/A");
+            } else {
+                jsonObject.addProperty("movieRating", resultSet.getString("mRating"));
+            }
             jsonObject.addProperty("movieGenres", resultSet.getString("mGenres"));
             jsonObject.addProperty("movieStars", resultSet.getString("mStars"));
             jsonArray.add(jsonObject);
